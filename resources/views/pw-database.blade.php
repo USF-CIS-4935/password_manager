@@ -15,6 +15,7 @@
       <div class="panel-bottom">
         <h3 class="panel-title">Password Name</h3>
         <p class="subtitle">Username Here</p>
+        <p class="subtitle">Password expires in: 10 days</p>
         <p class="panel-links"><i class="fas fa-copy"></i><i class="fas fa-edit"></i></p>
       </div>
     </div>
@@ -24,6 +25,7 @@
       <div class="panel-bottom">
         <h3 class="panel-title">Password Name</h3>
         <p class="subtitle">Username Here</p>
+        <p class="subtitle">Password expires in: 10 days</p>
         <p class="panel-links"><i class="fas fa-copy"></i><i class="fas fa-edit"></i></p>
       </div>
     </div>
@@ -33,6 +35,7 @@
       <div class="panel-bottom">
         <h3 class="panel-title">Password Name</h3>
         <p class="subtitle">Username Here</p>
+        <p class="subtitle">Password expires in: 10 days</p>
         <p class="panel-links"><i class="fas fa-copy"></i><i class="fas fa-edit"></i></p>
       </div>
     </div>
@@ -42,6 +45,7 @@
       <div class="panel-bottom">
         <h3 class="panel-title">Password Name</h3>
         <p class="subtitle">Username Here</p>
+        <p class="subtitle">Password expires in: 10 days</p>
         <p class="panel-links"><i class="fas fa-copy"></i><i class="fas fa-edit"></i></p>
       </div>
     </div>
@@ -51,6 +55,7 @@
       <div class="panel-bottom">
         <h3 class="panel-title">Password Name</h3>
         <p class="subtitle">Username Here</p>
+        <p class="subtitle">Password expires in: 10 days</p>
         <p class="panel-links"><i class="fas fa-copy"></i><i class="fas fa-edit"></i></p>
       </div>
     </div>

@@ -38,7 +38,7 @@
 }
 .sidelink-container:hover{
   background-color: var(--dark-usf-green);
-  transition: .4s;
+  transition: 0.4s;
 }
 
 .sidelink-container.active{
@@ -67,6 +67,7 @@
 }
 
 .subtitle{
+  font-size: 15px;
   margin: 2px 0px 2px 0px;
   color: var(--lighter-text-color);
 }
@@ -169,6 +170,15 @@
   padding: 10px;
   color: white;
   font-size: 15px;
+}
+.button i{
+  position: inherit;
+  font-size: inherit;
+}
+
+.button:hover{
+  background-color: var(--dark-usf-green);
+  transition: 0.4s;
 }
 
 .progress-meter {
