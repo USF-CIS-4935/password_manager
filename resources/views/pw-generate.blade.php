@@ -46,8 +46,8 @@
       <button class="button" style="float: right;"><i class="fas fa-copy"></i> Copy to Clipboard</button>
     </div>
 
-    <div id="gen-result">
-      <input class="text-search" type="text" placeholder="Your New Password Will Appear Here">
+    <div id="gen-result" class="generator-fields">
+      <input class="text-search-small" type="text" placeholder="Your New Password Will Appear Here">
     </div>
 
     </div>
