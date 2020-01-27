@@ -1,6 +1,6 @@
 <div class="sidenav">
-  <div class="sidelink-container @if (\Request::route()->getName() == 'options') active @endif">
-    <a href="#"><i class="fas fa-user"></i>Account Options</a>
+  <div class="sidelink-container @if (\Request::route()->getName() == 'acc-options') active @endif">
+    <a href="{{ route('acc-options') }}"><i class="fas fa-user"></i>Account Options</a>
     <hr>
   </div>
   <div class="sidelink-container @if (\Request::route()->getName() == 'database') active @endif">

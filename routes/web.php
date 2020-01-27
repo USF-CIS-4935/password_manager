@@ -15,10 +15,14 @@ Route::get('/', function () {
     return view('pw-database');
 })->name('database');
 
-Route::get('/generate', function () {
+Route::get('account', function () {
+    return view('acc-options');
+})->name('acc-options');
+
+Route::get('generate', function () {
     return view('pw-generate');
 })->name('generate');
 
-Route::get('/reuse', function () {
+Route::get('reuse', function () {
     return view('pw-reuse');
 })->name('reuse');

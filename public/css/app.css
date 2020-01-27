@@ -213,3 +213,7 @@
   position: relative;
   overflow: hidden;
 }
+
+.center-wrapper{
+  text-align: center;
+}
