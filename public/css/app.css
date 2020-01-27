@@ -48,7 +48,7 @@
   color: var(--usf-green);
 }
 
-i.fas{
+.sidelink-container .fas{
   font-size: 30px;
   display:block;
   margin: 0 auto;
@@ -142,4 +142,47 @@ i.fas{
   padding-top: 32px;
   min-width: 50px;
   text-align: center;
+}
+
+.generator-fields{
+  width: 40%;
+  margin:20px auto 0px auto;
+}
+#gen-result{
+  text-align: center;
+  margin: auto;
+}
+
+.generator-fields legend {
+    background-color: var(--usf-green);
+    color: white;
+    padding: 3px 6px;
+}
+.generator-fields input{
+  margin: 10px 5px;
+}
+
+.button{
+  background-color: var(--usf-green);
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  color: white;
+  font-size: 15px;
+}
+
+.meter {
+  width: 98%;
+	height: 20px;
+	position: relative;
+  border: 2px solid var(--lighter-text-color);
+  background-color: var(--lightest-text-color);
+	padding: 5px;
+}
+.meter > span {
+  display: block;
+  height: 100%;
+  background-color: #e4cd67;
+  position: relative;
+  overflow: hidden;
 }
