@@ -10,7 +10,7 @@
     <a href="{{ route('generate') }}"><i class="fas fa-plus"></i>Generate a Password</a>
   </div>
   <div class="sidelink-container @if (\Request::route()->getName() == 'reuse') active @endif">
-    <a href="#"><i class="fas fa-sync"></i>Check for Reuse</a>
+    <a href="{{ route('reuse') }}"><i class="fas fa-sync"></i>Check for Reuse</a>
   </div>
   <div class="sidelink-container @if (\Request::route()->getName() == 'help') active @endif">
     <a href="#"><i class="fas fa-question"></i>Help and Information</a>

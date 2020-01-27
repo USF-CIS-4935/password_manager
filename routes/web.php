@@ -18,3 +18,7 @@ Route::get('/', function () {
 Route::get('/generate', function () {
     return view('pw-generate');
 })->name('generate');
+
+Route::get('/reuse', function () {
+    return view('pw-reuse');
+})->name('reuse');

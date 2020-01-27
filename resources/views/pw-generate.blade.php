@@ -36,7 +36,7 @@
 
     <fieldset class="generator-fields">
       <legend>Password Entropy</legend>
-      <div class="meter">
+      <div class="progress-meter">
         <span style="width: 65%"></span>
       </div>
     </fieldset>
