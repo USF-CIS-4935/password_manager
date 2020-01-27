@@ -13,8 +13,8 @@
 
 Route::get('/', function () {
     return view('pw-database');
-});
+})->name('database');
 
 Route::get('/generate', function () {
     return view('pw-generate');
-});
+})->name('generate');
