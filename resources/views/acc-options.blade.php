@@ -32,7 +32,7 @@
       <label for="age_notif">Notifications for Password Age Expirations</label><br>
 
       <input type="checkbox">
-      <label for="">Option 1</label><br>
+      <label for="lockout">Enable Lockout Timer After Failed Login Attempts</label><br>
 
       <input type="checkbox">
       <label for="">Option 2</label><br>

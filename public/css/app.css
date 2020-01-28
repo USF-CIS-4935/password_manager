@@ -73,6 +73,7 @@
 
 .subtitle{
   font-size: 15px;
+  text-decoration: none;
   margin: 2px 0px 2px 0px;
   color: var(--lighter-text-color);
 }
@@ -180,24 +181,6 @@
   margin: 10px 5px;
 }
 
-.button{
-  background-color: var(--usf-green);
-  border: none;
-  border-radius: 4px;
-  padding: 10px;
-  color: white;
-  font-size: 15px;
-}
-.button i{
-  position: inherit;
-  font-size: inherit;
-}
-
-.button:hover{
-  background-color: var(--dark-usf-green);
-  transition: 0.4s;
-}
-
 .progress-meter {
   width: 98%;
 	height: 20px;
@@ -216,4 +199,25 @@
 
 .center-wrapper{
   text-align: center;
+}
+.button{
+  background-color: var(--usf-green);
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  color: white;
+  font-size: 15px;
+}
+.button i{
+  position: inherit;
+  font-size: inherit;
+}
+
+.button:hover{
+  background-color: var(--dark-usf-green);
+  transition: 0.4s;
+}
+
+}
+
 }
