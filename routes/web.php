@@ -26,3 +26,7 @@ Route::get('generate', function () {
 Route::get('reuse', function () {
     return view('pw-reuse');
 })->name('reuse');
+
+Route::get('/login', function () {
+    return view('auth/login');
+})->name('login');
