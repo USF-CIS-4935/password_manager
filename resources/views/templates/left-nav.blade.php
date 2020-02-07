@@ -13,6 +13,6 @@
     <a href="{{ route('reuse') }}"><i class="fas fa-sync"></i>Check for Reuse</a>
   </div>
   <div class="sidelink-container @if (\Request::route()->getName() == 'help') active @endif">
-    <a href="#"><i class="fas fa-question"></i>Help and Information</a>
+    <a href="{{ route('help') }}"><i class="fas fa-question"></i>Help and Information</a>
   </div>
 </div>
