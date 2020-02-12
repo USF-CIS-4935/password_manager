@@ -4,9 +4,11 @@
   @include('templates/left-nav')
   <div class="container">
     <p class="header-text">Password Database</p>
-    <div class="top-search">
-      <i class="fas fa-search icon"></i>
-      <input id="db-search" class="text-search" type="text" placeholder="Search By Password Name">
+    <div class="top-search" style="display: inline-block;">
+      <input id="db-search" class="text-search" type="text" style="margin-right: 0px; float: left;" placeholder="Search by password name">
+      <div class="search-button">
+        <i class="fas fa-search"></i>
+      </div>
     </div>
     <div class="password-panels">
       <div class="pw-panel">

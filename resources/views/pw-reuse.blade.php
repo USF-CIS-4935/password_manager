@@ -8,9 +8,11 @@
       the "Have I Been Pwned" API to search for either a specific password or to search for all of your saved passwords (although this will take time)</p>
       <div class="center-wrapper">
         <div class="top-search">
-          <i class="fas fa-search icon"></i>
-          <input id="reuse-search" class="text-search" type="text" placeholder="Search for a specific password">
-          <button class="button" style="font-size: 20px; padding: 12px;"><i class="fas fa-list"></i> Check All of My Passwords</button>
+          <input id="reuse-search" class="text-search" type="text" style="margin-right: 0px; float: left;" placeholder="Search for a specific password">
+          <div class="search-button">
+            <i class="fas fa-search"></i>
+          </div>
+          <button class="button" style="margin-top: 20px; height: 40px;"><i class="fas fa-list"></i> Check All of My Passwords</button>
         </div>
       </div>
     </div>
