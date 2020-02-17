@@ -281,8 +281,9 @@
   width: 100%;
 }
 
-.pw-forgot:hover {
+.login-subtext:hover {
   color: var(--body-text-color);
+  text-decoration: underline;
   transition: 0.2s;
 }
 
