@@ -29,11 +29,11 @@
     <fieldset class="generator-fields">
       <legend>Account Settings</legend>
 
-      <input type="checkbox" id="password_age_notifications">
-      <label for="password_age_notifications">Notifications for Password Age Expirations</label><br>
+      <input type="checkbox" id="password_age_notification">
+      <label for="password_age_notification">Notifications for Password Age Expirations</label><br>
 
-      <input type="checkbox" id="failed_login_lockout">
-      <label for="failed_login_lockout">Enable Lockout Timer After Failed Login Attempts</label><br>
+      <input type="checkbox" id="failure_lockout_timer">
+      <label for="failure_lockout_timer">Enable Lockout Timer After Failed Login Attempts</label><br>
 
       <input type="checkbox" id="">
       <label for="">Option 2</label><br>
@@ -49,8 +49,8 @@
   <script type="text/javascript">
   function postSettingsUpdate(){
     var pageData = {
-      password_age_notifications : $('#password_age_notifications').is(':checked') ? 1 : 0,
-      failed_login_lockout : $('#failed_login_lockout').is(':checked') ? 1 : 0
+      password_age_notification : $('#password_age_notification').is(':checked') ? 1 : 0,
+      failure_lockout_timer : $('#failure_lockout_timer').is(':checked') ? 1 : 0
     };
     $.ajax({
       headers: {
