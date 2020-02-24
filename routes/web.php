@@ -19,6 +19,9 @@ Route::get('account', function () {
     return view('acc-options');
 })->name('acc-options');
 
+Route::post('update-account-options', 'UserController@update_account_options')
+->name('update-account-options');
+
 Route::get('generate', function () {
     return view('pw-generate');
 })->name('generate');
