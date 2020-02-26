@@ -22,7 +22,7 @@
       </div>
     </div>
     <div id="password-panels">
-      <div class="pw-panel" data-pwname="password1">
+      <div class="pw-panel no-select" data-pwname="password1">
         <div class="date-field">
           <span class="day-counter">14&nbsp;</span>days
         </div>
@@ -33,7 +33,7 @@
         </div>
         <p class="panel-links"><i class="fas fa-copy"></i></p>
       </div>
-      <div class="pw-panel" data-pwname="password2">
+      <div class="pw-panel no-select" data-pwname="password2">
         <div class="date-field">
           <span class="day-counter">14&nbsp;</span>days
         </div>
@@ -44,7 +44,7 @@
         </div>
         <p class="panel-links"><i class="fas fa-copy"></i></p>
       </div>
-      <div class="pw-panel" data-pwname="password3">
+      <div class="pw-panel no-select" data-pwname="password3">
         <div class="date-field">
           <span class="day-counter">14&nbsp;</span>days
         </div>
