@@ -34,7 +34,7 @@ class RegisterController extends Controller
      protected function redirectTo(){
        return route('database');
      }
-     
+
     /**
      * Create a new controller instance.
      *
@@ -72,10 +72,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        \App\AccountOptions::create([
+            'user_id' => $user->id,
+            'password_age_notification' => 0,
+            'failure_lockout_timer' => 0,
+        ]);
+
+        return $user;
     }
 
     protected function guard()

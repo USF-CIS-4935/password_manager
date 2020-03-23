@@ -1,9 +1,8 @@
 // Takes a string of a password and returns "true" when it is valid, and an error message when it is not.
 function verifyPasswordReqs(pwString){
   var valid = true;
-  var regex = new RegExp('[-!$#%^&*()_+|~=`{}\[\];<>\?,.\/]');
-  if (regex.test(pwString) == false){
-    valid = "Password must contain a symbol";
+  if (/[!@#$%^&*()\-_\=\+]/.test(pwString) == false){
+    valid = "Password must contain one of the symbols: !@#$%^&*()-_=+";
   }
   if (/\d/.test(pwString) == false){
     valid = "Password must contain a number";
