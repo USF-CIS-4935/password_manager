@@ -6,15 +6,7 @@
     <form method="POST" action="{{ route('register') }}" style="margin: 0px;">
       @csrf
 
-      @if ($errors->any())
-        <div>
-          <ul>
-            @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-            @endforeach
-          </ul>
-        </div>
-      @endif
+      @include('templates/error-display')
 
       <label>Email Address</label><br>
       <input id="email" type="email" class="{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
@@ -43,14 +35,6 @@
         <strong>{{ $errors->first('password_confirmation') }}</strong>
       </span>
       @endif
-
-      <br>
-
-      <div class="">
-        <label>
-          <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-        </label>
-      </div>
 
       <br>
 

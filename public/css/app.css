@@ -1,6 +1,7 @@
 :root {
 --usf-green: #006747;
 --dark-usf-green: #004a33;
+--disabled-usf-green: #55907e;
 --body-text-color: #424242;
 --lighter-text-color: #a3a3a3;
 --lightest-text-color: #e6e6e6;
@@ -282,6 +283,12 @@
   width: 100%;
 }
 
+.login-button:disabled{
+  color: #eaeaea;
+  background-color: var(--disabled-usf-green);
+}
+
+
 .login-subtext:hover {
   color: var(--body-text-color);
   text-decoration: underline;
@@ -364,4 +371,32 @@
 .invalid-feedback{
   color: red;
   font-size: 12px;
+}
+
+.is-invalid{
+  border: 2px solid red !important;
+}
+
+.error-display-icon{
+  display: flex; align-items: center; justify-content: center; /* center the icon */
+  float: left;
+  width: 50px;
+  height: 40px;
+  background-color: red;
+  color: white;
+  border-radius: 5px 0px 0px 5px;
+  margin-top: 20px;
+}
+
+.error-display-box{
+  display: flex; align-items: center; /* center the icon */
+  background-color: var(--lightest-text-color);
+  color: var(--body-text-color);
+  font-size: 15px;
+  border: none;
+  border-radius: 3px;
+  width: calc(100% - 60px);
+  height: 40px;
+  margin: 20px 0px 20px 0px;
+  padding-left: 10px;
 }
