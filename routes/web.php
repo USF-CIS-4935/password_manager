@@ -9,7 +9,7 @@ Route::middleware(['auth'])->group(function () {
   })->name('database');
 
   Route::get('account', function () {
-      return view('acc-options');
+      return view('acc-options')->with('user', Auth::user());
   })->name('acc-options');
 
   Route::post('update-account-options', 'UserController@update_account_options')

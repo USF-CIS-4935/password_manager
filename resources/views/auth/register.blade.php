@@ -8,7 +8,7 @@
 
       <div id="error-display" class="top-search" style="display: none;">
         <div class="error-display-icon">
-          <i class="fas fa-search"></i>
+          <i class="fas fa-exclamation"></i>
         </div>
         <div id="error-display-box" class="error-display-box" type="text" style="float: left;">
           <span></span>

@@ -12,7 +12,7 @@
           <div class="search-button">
             <i class="fas fa-search"></i>
           </div>
-          <button class="button" style="margin-top: 20px; height: 40px;"><i class="fas fa-list"></i> Check All of My Passwords</button>
+          <button class="green-button" style="margin-top: 20px; height: 40px;"><i class="fas fa-list"></i> Check All of My Passwords</button>
         </div>
       </div>
     </div>

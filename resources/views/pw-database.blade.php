@@ -84,6 +84,7 @@
   $('.pw-panel').click(function() {
     $("#pw-edit-modal").show();
   });
+  
   $('.modal-close-btn').click(function() {
     $(this).closest(".modal").hide();
   });

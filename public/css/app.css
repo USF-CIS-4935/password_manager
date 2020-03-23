@@ -254,7 +254,7 @@
   font-size: 20px;
 }
 
-.button{
+.green-button{
   background-color: var(--usf-green);
   border: none;
   border-radius: 4px;
@@ -262,7 +262,11 @@
   color: white;
   font-size: 15px;
 }
-.button i{
+.green-button:disabled{
+  color: #eaeaea;
+  background-color: var(--disabled-usf-green);
+}
+.green-button i{
   position: inherit;
   font-size: inherit;
 }
