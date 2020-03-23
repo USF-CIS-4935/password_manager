@@ -15,4 +15,8 @@
   <div class="sidelink-container @if (\Request::route()->getName() == 'help') active @endif">
     <a href="{{ route('help') }}"><i class="fas fa-question"></i>Help and Information</a>
   </div>
+  <div class="sidelink-container" style="position: absolute; bottom: 30px;">
+    <hr>
+    <a href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+  </div>
 </div>
