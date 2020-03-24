@@ -33,7 +33,8 @@ class UserController extends Controller
         return $acc_options;
       }
       else {
-        return response(401);
+        return response('This user is not authorized to manage settings for this account.', 401)
+          ->header('Content-Type', 'text/plain');
       }
     }
 }

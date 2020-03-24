@@ -34,14 +34,14 @@
       <legend>Password Settings</legend>
 
       <label>Current Password</label><br>
-      <input class="text-search-small" id="current_password" name="current_password" type="text">
+      <input class="text-search-small" id="current_password" name="current_password" type="password">
 
       <hr>
 
       <label>New Password</label><br>
-      <input class="text-search-small" id="new_password" name="new_password" type="text">
+      <input class="text-search-small" id="new_password" name="new_password" type="password">
       <label>Repeat New Password</label><br>
-      <input class="text-search-small" id="new_password_confirmation" name="new_password_confirmation" type="text">
+      <input class="text-search-small" id="new_password_confirmation" name="new_password_confirmation" type="password">
     </fieldset>
 
     <fieldset class="generator-fields">
