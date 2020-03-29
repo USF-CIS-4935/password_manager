@@ -45,7 +45,7 @@
       </div>
 
       <div class="generator-fields">
-        Password: <span id="password" style="background-color: #9e9e9e;"></span>
+        Password: <span id="password" style="background-color: #9e9e9e; padding: 2px 5px;"></span>
         <p id="statistics" class="lowlight">&#xA0;</p>
       </div>
     </form>
@@ -53,9 +53,12 @@
     <hr style="width: 50%;">
 
     <div style="text-align: center;">
-      <p class="lowlight" style="max-width:unset">Entropy sources:<br>
-        ✓ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random"><code>Math.random()</code></a> (low security)<br>
-        <span id="crypto-getrandomvalues-entropy"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/API/RandomSource/getRandomValues"><code>crypto.getRandomValues()</code></a> (high security)
+      <p class="lowlight" style="max-width:unset">
+        <span>Sourced from <a href="https://www.nayuki.io/page/random-password-generator-javascript">nayuki.io</a></span><br>
+        Entropy sources:<br>
+        <span>✓ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random"><code>Math.random()</code></a> (low security)</span><br>
+        <span id="crypto-getrandomvalues-entropy"></span>
+        <span><a href="https://developer.mozilla.org/en-US/docs/Web/API/RandomSource/getRandomValues"><code>crypto.getRandomValues()</code></a> (high security)</span>
       </p>
       </div>
 
