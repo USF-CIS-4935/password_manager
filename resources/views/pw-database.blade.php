@@ -4,52 +4,57 @@
   @include('templates/left-nav')
 
   <div id="pw-edit-modal" class="modal">
-      <div class="modal-content">
-        <div class="modal-container">
-          <span class="modal-close-btn">×</span>
-          <p class="header-text" style="margin-top: 0px; font-size: 30px;">Edit A Password</p>
+    <div class="modal-content">
+      <div class="modal-container">
+        <span class="modal-close-btn">×</span>
+        <p class="header-text" style="margin-top: 0px; font-size: 30px;">Edit A Password</p>
 
-          <div id="success-display" class="top-search" style="margin: 0 auto; width: 55%;display: none;">
-            <div class="error-display-icon" style="background-color: #4caf50;">
-              <i class="fas fa-check"></i>
-            </div>
-            <div class="error-display-box" type="text" style="float: left;">
-              <span></span>
-            </div>
+        <div id="success-display" class="top-search" style="margin: 0 auto; display: none;">
+          <div class="error-display-icon" style="background-color: #4caf50;">
+            <i class="fas fa-check"></i>
           </div>
+          <div class="error-display-box" type="text" style="float: left;">
+            <span></span>
+          </div>
+        </div>
 
-          <div id="error-display" class="top-search" style="margin: 0 auto; width: 55%;display: none;">
-            <div class="error-display-icon">
-              <i class="fas fa-exclamation"></i>
-            </div>
-            <div class="error-display-box" type="text" style="float: left;">
-              <span></span>
-            </div>
+        <div id="error-display" class="top-search" style="margin: 0 auto;display: none;">
+          <div class="error-display-icon">
+            <i class="fas fa-exclamation"></i>
           </div>
+          <div class="error-display-box" type="text" style="float: left;">
+            <span></span>
+          </div>
+        </div>
 
-          <div class="modal-input" style="width: 47%;">
-            <label for="password_name">Name/Title:</label><br>
-            <input id="password_name" type="text">
-          </div>
-          <div class="modal-input" style="width: 47%; margin-left: 5%;">
-            <label for="saved_password">Password:</label><br>
-            <input id="saved_password" type="text">
-          </div>
-          <div class="modal-input" style="width: 100%;">
-            <label for="notes">Additional Notes:</label><br>
-            <textarea id="notes"></textarea>
-          </div>
+        <input id="password_id" type="hidden">
+        <div class="modal-input" style="width: 47%;">
+          <label for="password_name">Name/Title:</label><br>
+          <input id="password_name" type="text">
+        </div>
+        <div class="modal-input" style="width: 47%; margin-left: 5%;">
+          <label for="saved_password">Password:</label><br>
+          <input id="saved_password" type="text">
+        </div>
+        <div class="modal-input" style="width: 100%;">
+          <label for="notes">Additional Notes:</label><br>
+          <textarea id="notes"></textarea>
+        </div>
+        <div class="modal-input">
+          <span>Last Updated: Today</span><br>
+          <span>Password Expires In: 15 days</span>
+        </div>
 
-          <div class="modal-footer-buttons" style="display: block; margin-top: 15px;">
+        <div class="modal-footer-buttons" style="display: block; margin-top: 15px;">
+          <button class="green-button" id="config-password"><i class="fas fa-cog"></i> Configure</button>
+          <div class="right-buttons" style="float: right;">
             <button class="green-button" id="save-password"><i class="fas fa-save"></i> Save</button>
-            <div class="right-buttons" style="float: right;">
-              <button class="green-button" id="save-password"><i class="fas fa-save"></i> Save</button>
-              <button class="green-button" id="delete-password"><i class="fas fa-trash"></i> Delete</button>
-            </div>
+            <button class="green-button" id="delete-password"><i class="fas fa-trash"></i> Delete</button>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
   <div class="container">
     <p class="header-text">Password Database</p>
@@ -120,6 +125,7 @@
   });
 
   function populateModal(data){
+    $("#password_id").val(data.id),
     $('#password_name').val(data.password_name),
     $('#saved_password').val(data.encrypted_pass),
     $('#notes').val(data.notes),
@@ -147,8 +153,9 @@
   function postPasswordUpdate(){
     $('#save-password').prop("disabled", true);
     var pageData = {
+      password_id : $('#password_id').val(),
       password_name : $('#password_name').val(),
-      saved_password : $('#saved_password').val(),
+      encrypted_pass : $('#saved_password').val(),
       notes : $('#notes').val(),
     };
     $.ajax({
@@ -160,7 +167,7 @@
       data: pageData
     })
     .done(function(data){
-      $("#success-display .error-display-box span").text("Account options updated successfully");
+      $("#success-display .error-display-box span").text("Password updated successfully");
       $("#success-display").show().delay( 5000 );
       $("#success-display").fadeOut();
     })
@@ -172,7 +179,7 @@
         $("#error-display").show().delay( 10000 );
       }
       else{
-        $("#error-display .error-display-box span").text("An error occurred while updating account settings. Try again in a few minutes");
+        $("#error-display .error-display-box span").text("An error occurred while updating this password. Try again in a few minutes");
         $("#error-display").show().delay( 5000 );
       }
       $("#error-display").fadeOut();
