@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTestPwTable extends Migration
+class CreatePasswordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,7 +17,7 @@ class CreateTestPwTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
               $table->foreign('user_id')->references('id')->on('users');
-            $table->binary('encrypted_pass');
+            $table->string('encrypted_pass');
             $table->string('salt_string', 100);
             $table->timestamps();
         });

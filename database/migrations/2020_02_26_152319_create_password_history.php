@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLoginHistoryTable extends Migration
+class CreatePasswordHistory extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateLoginHistoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('login_history', function (Blueprint $table) {
+        Schema::create('password_history', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-              $table->foreign('user_id')->references('id')->on('users');
-            $table->ipAddress('user_ip');
-            $table->string('user_agent', 255);
+            $table->unsignedBigInteger('pass_id');
+              $table->foreign('pass_id')->references('id')->on('passwords');
+            $table->string('encrypted_pass');
+            $table->string('salt_string', 100);
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateLoginHistoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('login_history');
+        Schema::dropIfExists('password_history');
     }
 }
