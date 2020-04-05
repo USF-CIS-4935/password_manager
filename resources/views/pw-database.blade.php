@@ -2,12 +2,11 @@
 
 <body>
   @include('templates/left-nav')
-
   <div id="pw-edit-modal" class="modal">
     <div class="modal-content">
       <div class="modal-container">
         <span class="modal-close-btn">×</span>
-        <p class="header-text" style="margin-top: 0px; font-size: 30px;">Edit A Password</p>
+        <p id="modal-header" class="header-text" style="margin-top: 0px; font-size: 30px;">Edit A Password</p>
 
         <div id="success-display" class="top-search" style="margin: 0 auto; display: none;">
           <div class="error-display-icon" style="background-color: #4caf50;">
@@ -28,9 +27,13 @@
         </div>
 
         <input id="password_id" type="hidden">
-        <div class="modal-input" style="width: 47%;">
+        <div class="modal-input" style="width: 100%;">
           <label for="password_name">Name/Title:</label><br>
           <input id="password_name" type="text">
+        </div>
+        <div class="modal-input" style="width: 47%;">
+          <label for="username_email">Username/Email:</label><br>
+          <input id="username_email" type="text">
         </div>
         <div class="modal-input" style="width: 47%; margin-left: 5%;">
           <label for="saved_password">Password:</label><br>
@@ -41,7 +44,7 @@
           <textarea id="notes"></textarea>
         </div>
         <div class="modal-input">
-          <span>Last Updated: Today</span><br>
+          <span id="last_updated">Last Updated:</span><br>
           <span>Password Expires In: 15 days</span>
         </div>
 
@@ -63,41 +66,22 @@
       <div id="db-search-submit" class="search-button">
         <i class="fas fa-search"></i>
       </div>
+      <button id="add-password" class="green-button" style="margin-left: 50px; margin-top: 20px; height: 40px;"><i class="fas fa-plus"></i> Add A New Password</button>
     </div>
+
     <div id="password-panels">
-      <div class="pw-panel no-select" data-pwname="password1" data-pid="1">
-        <div class="date-field">
-          <span class="day-counter">14&nbsp;</span>days
+      @foreach ($passwords as $password)
+        <div class="pw-panel no-select" data-pwname="{{ $password->password_name }}" data-pid="{{ $password->id }}">
+          <div class="date-field">
+            <span class="day-counter">14&nbsp;</span>days
+          </div>
+          <div class="panel-right">
+            <h3 class="panel-title">{{ $password->password_name }}</h3>
+            <p class="subtitle">{{ $password->username_email ?? '-'}}</p>
+          </div>
+          <p class="panel-links"><i class="fas fa-copy copy-button"></i></p>
         </div>
-        <div class="panel-right">
-          <h3 class="panel-title">Password1</h3>
-          <p class="subtitle">Username Here</p>
-          <p class="subtitle">Password expires in: 10 days</p>
-        </div>
-        <p class="panel-links"><i class="fas fa-copy copy-button"></i></p>
-      </div>
-      <div class="pw-panel no-select" data-pwname="password2" data-pid="2">
-        <div class="date-field">
-          <span class="day-counter">14&nbsp;</span>days
-        </div>
-        <div class="panel-right">
-          <h3 class="panel-title">Password2</h3>
-          <p class="subtitle">Username Here</p>
-          <p class="subtitle">Password expires in: 10 days</p>
-        </div>
-        <p class="panel-links"><i class="fas fa-copy copy-button"></i></p>
-      </div>
-      <div class="pw-panel no-select" data-pwname="password3" data-pid="3">
-        <div class="date-field">
-          <span class="day-counter">14&nbsp;</span>days
-        </div>
-        <div class="panel-right">
-          <h3 class="panel-title">Password3</h3>
-          <p class="subtitle">Username Here</p>
-          <p class="subtitle">Password expires in: 10 days</p>
-        </div>
-        <p class="panel-links"><i class="fas fa-copy copy-button"></i></p>
-      </div>
+      @endforeach
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -105,7 +89,7 @@
   function search_filter(){
     var searchTerm = $('#db-search').val();
     $(".pw-panel").each(function(index) { //Iterate every password panel
-      if ($(this).data('pwname').indexOf(searchTerm.toLowerCase()) >= 0){ //Case-insenitive check for the search term within the 'pwname' data field
+      if ($(this).data('pwname').toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0){ //Case-insenitive check for the search term within the 'pwname' data field
         $(this).fadeIn(200);
       }
       else{
@@ -127,10 +111,30 @@
   function populateModal(data){
     $("#password_id").val(data.id),
     $('#password_name').val(data.password_name),
+    $('#username_email').val(data.username_email),
     $('#saved_password').val(data.encrypted_pass),
     $('#notes').val(data.notes),
 
+    $("#last_updated").text("Last Updated: " + data.updated_at);
+
     $("#pw-edit-modal").show();
+  }
+
+  function addPasswordPanel(panel_data){
+    var new_panel = "\
+    <div class='pw-panel no-select' data-pwname=" + String(panel_data.password_name) + " data-pid=" + panel_data.id + ">\
+      <div class='date-field'>\
+        <span class='day-counter'>14&nbsp;</span>days\
+      </div>\
+      <div class='panel-right'>\
+        <h3 class='panel-title'>" + panel_data.password_name + "</h3>\
+        <p class='subtitle'>" + panel_data.username_email + "</p>\
+      </div>\
+      <p class='panel-links'><i class='fas fa-copy copy-button'></i></p>\
+    </div>\
+    ";
+
+    $("#password-panels").append(new_panel);
   }
 
   function getPassword(passID){
@@ -155,6 +159,7 @@
     var pageData = {
       password_id : $('#password_id').val(),
       password_name : $('#password_name').val(),
+      username_email : $('#username_email').val(),
       encrypted_pass : $('#saved_password').val(),
       notes : $('#notes').val(),
     };
@@ -167,6 +172,7 @@
       data: pageData
     })
     .done(function(data){
+      populateModal(data);
       $("#success-display .error-display-box span").text("Password updated successfully");
       $("#success-display").show().delay( 5000 );
       $("#success-display").fadeOut();
@@ -193,7 +199,14 @@
     postPasswordUpdate();
   });
 
-  $('.pw-panel').click(function() {
+  $('#add-password').click(function(){
+    $("#modal-header").text("Add A New Password");
+    populateModal( {id : 'new'} );
+  });
+
+  // Uses "on" listener to support dynamically added password panels
+  $('#password-panels').on("click", ".pw-panel", function() {
+    $("#modal-header").text("Edit A Password");
     getPassword( $(this).data('pid') );
   });
 

@@ -5,7 +5,8 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
   Route::get('/', function () {
-      return view('pw-database');
+      $passwords = \App\Password::where('user_id', Auth::user()->id)->get();
+      return view('pw-database')->with('passwords', $passwords);
   })->name('database');
 
   Route::get('get-password/{password_id?}', 'PasswordController@get_password')
