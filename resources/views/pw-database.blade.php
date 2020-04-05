@@ -2,29 +2,13 @@
 
 <body>
   @include('templates/left-nav')
+  @include('templates/status-notifications')
+
   <div id="pw-edit-modal" class="modal">
     <div class="modal-content">
       <div class="modal-container">
         <span class="modal-close-btn">×</span>
         <p id="modal-header" class="header-text" style="margin-top: 0px; font-size: 30px;">Edit A Password</p>
-
-        <div id="success-display" class="top-search" style="margin: 0 auto; display: none;">
-          <div class="error-display-icon" style="background-color: #4caf50;">
-            <i class="fas fa-check"></i>
-          </div>
-          <div class="error-display-box" type="text" style="float: left;">
-            <span></span>
-          </div>
-        </div>
-
-        <div id="error-display" class="top-search" style="margin: 0 auto;display: none;">
-          <div class="error-display-icon">
-            <i class="fas fa-exclamation"></i>
-          </div>
-          <div class="error-display-box" type="text" style="float: left;">
-            <span></span>
-          </div>
-        </div>
 
         <input id="password_id" type="hidden">
         <div class="modal-input" style="width: 100%;">
@@ -86,6 +70,7 @@
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="js/app_functions.js"></script>
   <script type="text/javascript">
   function search_filter(){
     var searchTerm = $('#db-search').val();
@@ -173,22 +158,15 @@
     })
     .done(function(data){
       populateModal(data);
-      $("#success-display .error-display-box span").text("Password updated successfully");
-      $("#success-display").show().delay( 5000 );
-      $("#success-display").fadeOut();
+      displayNotification("success", "Password updated successfully", 5000);
     })
     .fail(function(data){
       if (data.status = 422){
-        $.each(data.responseJSON.errors, function(index, value){
-          $("#error-display .error-display-box span").append('<strong>' + index + '</strong>: ' + value + '<br>');
-        });
-        $("#error-display").show().delay( 10000 );
+        displayNotification("error", data.responseJSON.errors, 10000);
       }
       else{
-        $("#error-display .error-display-box span").text("An error occurred while updating this password. Try again in a few minutes");
-        $("#error-display").show().delay( 5000 );
+        displayNotification("error", "An error occurred while updating this password. Try again in a few minutes", 5000);
       }
-      $("#error-display").fadeOut();
     })
     .always(function(data){
       $('#save-password').prop("disabled", false);
@@ -205,24 +183,17 @@
       data: { password_id : $('#password_id').val() }
     })
     .done(function(data){
-      $("#success-display .error-display-box span").text("Password deleted successfully");
-      $("#success-display").show().delay( 5000 );
-      $("#success-display").fadeOut();
+      displayNotification("success", "Password deleted successfully", 5000);
       $(".pw-panel[data-pid=" + $('#password_id').val() + "]").remove();
       $("#pw-edit-modal").hide();
     })
     .fail(function(data){
       if (data.status = 422){
-        $.each(data.responseJSON.errors, function(index, value){
-          $("#error-display .error-display-box span").append('<strong>' + index + '</strong>: ' + value + '<br>');
-        });
-        $("#error-display").show().delay( 10000 );
+        displayNotification("error", data.responseJSON.errors, 10000);
       }
       else{
-        $("#error-display .error-display-box span").text("An error occurred while updating this password. Try again in a few minutes");
-        $("#error-display").show().delay( 5000 );
+        displayNotification("error", "An error occurred while attempting to delete this password", 5000);
       }
-      $("#error-display").fadeOut();
     })
   }
 

@@ -18,3 +18,31 @@ function verifyPasswordReqs(pwString){
   }
   return valid;
 }
+
+// Displays the success or failure notification at the top of the page.
+function displayNotification(notification_type = "error", error_message, fade_time = false){
+  if (notification_type == "error"){
+    var notif_elem = "error-display";
+  }
+  else{
+    var notif_elem = "success-display";
+  }
+
+  if ($.type(error_message) == "string"){
+    $("#" + notif_elem + " .error-display-box span").text(error_message);
+  }
+  else{ //Handle multiple errors passed as an object
+    $("#" + notif_elem + " .error-display-box span").text(""); //Clear out in case of multiple appends
+    $.each(error_message, function(index, value){
+      $("#" + notif_elem + " .error-display-box span").append('<strong>' + index + '</strong>: ' + value + '<br>');
+    });
+  }
+
+  if ( fade_time && $.isNumeric(fade_time) ){
+    $("#" + notif_elem).show().delay( fade_time );
+    $("#" + notif_elem).fadeOut();
+  }
+  else{
+    $("#" + notif_elem).show();
+  }
+}

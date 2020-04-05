@@ -3,26 +3,10 @@
 <body>
   <input type="hidden" id="_token" value="{{ csrf_token() }}">
   @include('templates/left-nav')
+  @include('templates/status-notifications')
+
   <div class="container">
     <p class="header-text">Account Options</p>
-
-    <div id="success-display" class="top-search" style="margin: 0 auto; width: 55%;display: none;">
-      <div class="error-display-icon" style="background-color: #4caf50;">
-        <i class="fas fa-check"></i>
-      </div>
-      <div class="error-display-box" type="text" style="float: left;">
-        <span></span>
-      </div>
-    </div>
-
-    <div id="error-display" class="top-search" style="margin: 0 auto; width: 55%;display: none;">
-      <div class="error-display-icon">
-        <i class="fas fa-exclamation"></i>
-      </div>
-      <div class="error-display-box" type="text" style="float: left;">
-        <span></span>
-      </div>
-    </div>
 
     <fieldset class="generator-fields">
       <legend>E-mail Address</legend>
@@ -63,6 +47,7 @@
 
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="js/app_functions.js"></script>
   <script type="text/javascript">
   function postSettingsUpdate(){
     $('#save-account-options').prop("disabled", true);
@@ -82,22 +67,15 @@
       data: pageData
     })
     .done(function(data){
-      $("#success-display .error-display-box span").text("Account options updated successfully");
-      $("#success-display").show().delay( 5000 );
-      $("#success-display").fadeOut();
+      displayNotification("success", "Account options updated successfully", 5000);
     })
     .fail(function(data){
       if (data.status = 422){
-        $.each(data.responseJSON.errors, function(index, value){
-          $("#error-display .error-display-box span").append('<strong>' + index + '</strong>: ' + value + '<br>');
-        });
-        $("#error-display").show().delay( 10000 );
+        displayNotification("error", data.responseJSON.errors, 10000);
       }
       else{
-        $("#error-display .error-display-box span").text("An error occurred while updating account settings. Try again in a few minutes");
-        $("#error-display").show().delay( 5000 );
+        displayNotification("error", "An error occurred while updating account settings. Try again in a few minutes", 5000);
       }
-      $("#error-display").fadeOut();
     })
     .always(function(data){
       $('#save-account-options').prop("disabled", false);

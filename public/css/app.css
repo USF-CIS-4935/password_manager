@@ -320,7 +320,7 @@
 }
 
 .modal{
-  z-index: 3;
+  z-index: 2;
   display: none;
   padding-top: 100px;
   position: fixed;
@@ -422,4 +422,16 @@
   height: 40px;
   margin: 20px 0px 20px 0px;
   padding-left: 10px;
+}
+
+.top-notification{
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 50%;
+  max-width: 800px;
+  margin: 0 auto;
+  z-index: 3;
+  position: absolute;
+  overflow: hidden;
 }
