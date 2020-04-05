@@ -21,7 +21,7 @@ class PasswordController extends Controller
   public function update_password(Request $request){
     if ( $password = Password::find($request->password_id) ){
       //Check if the person modifying actually owns the password
-      if ($password->user === Auth::user()){
+      if ($password->user_id === Auth::user()->id){
         $validatedData = $request->validate([
           'password_name' => 'required|string|max:200',
           'username_email' => 'nullable|string|max:100',
@@ -47,7 +47,30 @@ class PasswordController extends Controller
           'notes' => $request['notes'],
       ]);
     }
+    else{
+      return response('No password was found matching the provided ID.', 404)
+      ->header('Content-Type', 'text/plain');
+    }
 
     return $password;
+  }
+
+  public function delete_password(Request $request){
+    if ( $password = Password::find($request->password_id) ){
+      if ($password->user_id === Auth::user()->id){
+        $password->delete();
+        return response('Password successfully deleted.', 200);
+      }
+      else {
+        var_dump($password->user);
+        die();
+        return response('This user is not authorized to manage this password.', 401)
+        ->header('Content-Type', 'text/plain');
+      }
+    }
+    else{
+      return response('No password was found matching the provided ID.', 404)
+      ->header('Content-Type', 'text/plain');
+    }
   }
 }

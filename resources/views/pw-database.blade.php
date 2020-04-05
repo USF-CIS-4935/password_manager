@@ -78,6 +78,7 @@
           <div class="panel-right">
             <h3 class="panel-title">{{ $password->password_name }}</h3>
             <p class="subtitle">{{ $password->username_email ?? '-'}}</p>
+            <p class="subtitle">Last Updated: {{ $password->updated_at->format('m/d/y') ?? '-'}}</p>
           </div>
           <p class="panel-links"><i class="fas fa-copy copy-button"></i></p>
         </div>
@@ -146,7 +147,6 @@
       method: "GET",
     })
     .done(function(data){
-      console.log(data);
       populateModal(data);
     })
     .fail(function(data){
@@ -195,6 +195,37 @@
     })
   }
 
+  function postPasswordDelete(){
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: "{{ route('delete-password') }}",
+      method: "POST",
+      data: { password_id : $('#password_id').val() }
+    })
+    .done(function(data){
+      $("#success-display .error-display-box span").text("Password deleted successfully");
+      $("#success-display").show().delay( 5000 );
+      $("#success-display").fadeOut();
+      $(".pw-panel[data-pid=" + $('#password_id').val() + "]").remove();
+      $("#pw-edit-modal").hide();
+    })
+    .fail(function(data){
+      if (data.status = 422){
+        $.each(data.responseJSON.errors, function(index, value){
+          $("#error-display .error-display-box span").append('<strong>' + index + '</strong>: ' + value + '<br>');
+        });
+        $("#error-display").show().delay( 10000 );
+      }
+      else{
+        $("#error-display .error-display-box span").text("An error occurred while updating this password. Try again in a few minutes");
+        $("#error-display").show().delay( 5000 );
+      }
+      $("#error-display").fadeOut();
+    })
+  }
+
   $('#save-password').click(function(){
     postPasswordUpdate();
   });
@@ -202,6 +233,12 @@
   $('#add-password').click(function(){
     $("#modal-header").text("Add A New Password");
     populateModal( {id : 'new'} );
+  });
+
+  $('#delete-password').click(function(){
+    if (confirm("Are you sure you'd like to delete this password? This action cannot be undone.")) {
+      postPasswordDelete();
+    }
   });
 
   // Uses "on" listener to support dynamically added password panels
