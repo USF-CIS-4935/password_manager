@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+    function return_account_options(){
+      $last_logins = \App\LoginRecord::where('user_id', Auth::user()->id)
+        ->limit(5)
+        ->get();
+      return view('acc-options')
+        ->with('user', Auth::user())
+        ->with('last_logins', $last_logins);
+    }
+
     public function update_account_options(Request $request){
 
       if (Auth::check()) {

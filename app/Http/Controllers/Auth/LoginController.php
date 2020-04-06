@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Auth;
+use Illuminate\Http\Request;
+use \App\LoginRecord;
 
 class LoginController extends Controller
 {
@@ -41,6 +43,16 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    function authenticated(Request $request, $user)
+    {
+      LoginRecord::create([
+        'user_id' => $user->id,
+        'user_ip' => $request->getClientIp(),
+        'user_agent' => $request->header('User-Agent')
+      ]);
+    }
+
 
     public function logout() {
       Auth::logout();

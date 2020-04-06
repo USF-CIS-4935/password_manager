@@ -16,9 +16,8 @@ Route::middleware(['auth'])->group(function () {
   Route::post('delete-password', 'PasswordController@delete_password')
   ->name('delete-password');
 
-  Route::get('account', function () {
-      return view('acc-options')->with('user', Auth::user());
-  })->name('acc-options');
+  Route::get('account', 'UserController@return_account_options')
+  ->name('acc-options');
 
   Route::post('update-account-options', 'UserController@update_account_options')
   ->name('update-account-options');

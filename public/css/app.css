@@ -435,3 +435,18 @@
   position: absolute;
   overflow: hidden;
 }
+
+.login-record-table{
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.login-record-table td, th{
+  border: 1px solid var(--lightest-text-color);
+  text-align: left;
+  padding: 8px;
+}
+
+.login-record-table tr:nth-child(even) {
+  background-color: var(--lightest-text-color);
+}

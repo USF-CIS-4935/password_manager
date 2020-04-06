@@ -15,6 +15,24 @@
     </fieldset>
 
     <fieldset class="generator-fields">
+      <legend>Login History</legend>
+      <table class="login-record-table">
+        <tr>
+          <th>Time</th>
+          <th>IP Address</th>
+          <th>User Agent</th>
+        </tr>
+        @foreach($last_logins as $login)
+          <tr>
+            <td>{{ $login->created_at->format('m/d/y H:m:s') }}</td>
+            <td>{{ $login->user_ip }}</td>
+            <td>{{ $login->user_agent }}</td>
+          </tr>
+        @endforeach
+      </table>
+    </fieldset>
+
+    <fieldset class="generator-fields">
       <legend>Password Settings</legend>
 
       <label>Current Password</label><br>
