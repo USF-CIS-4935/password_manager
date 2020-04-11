@@ -41,14 +41,28 @@
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="js/app_functions.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha256.js" integrity="sha256-97+5pkCC4Dcd6Gw7Ptg+BfIr4erDGQ1zc2KY8vDshCU=" crossorigin="anonymous"></script>
   <script type="text/javascript">
-    $("#login-form").submit(function(event) {
-      var verify = verifyPasswordReqs( $("#password").val() );
-      if (verify !== true){
-        event.preventDefault();
-        displayNotification("error", verify);
-        $("#password").addClass('is-invalid');
-      }
-    });
+
+  function storeDerivedKey() {
+    if (typeof(Storage) !== "undefined") {
+      sessionStorage.derivedEncyptionKey = CryptoJS.SHA256( $("#password").val() );
+    }
+    else {
+      displayNotification("error", "Sorry, your browser does not support web storage. This application will not be compatible.");
+    }
+  }
+
+  $("#login-form").submit(function(event) {
+    var verify = verifyPasswordReqs( $("#password").val() );
+    if (verify !== true){
+      event.preventDefault();
+      displayNotification("error", verify);
+      $("#password").addClass('is-invalid');
+    }
+    else{
+      storeDerivedKey();
+    }
+  });
   </script>
 </body>
