@@ -13,11 +13,11 @@
         <input id="password_id" type="hidden">
         <div class="modal-input" style="width: 100%;">
           <label for="password_name">Name/Title:</label><br>
-          <input id="password_name" type="text" autocomplete="off">
+          <input id="password_name" type="text" maxlength="225" autocomplete="off">
         </div>
         <div class="modal-input" style="width: 47%;">
           <label for="username_email">Username/Email:</label><br>
-          <input id="username_email" type="text" autocomplete="off">
+          <input id="username_email" type="text" maxlength="225" autocomplete="off">
         </div>
         <div class="modal-input" style="width: 47%; margin-left: 5%;">
           <label for="saved_password">Password:</label><br>
@@ -71,6 +71,7 @@
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="js/app_functions.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
   <script type="text/javascript">
   function search_filter(){
     var searchTerm = $('#db-search').val();
@@ -87,7 +88,6 @@
   $('#db-search-submit').click(function() {
     search_filter();
   });
-
   $('#db-search').keypress(function (e) {
     if (e.which == 13) { //'Enter'
       search_filter();
@@ -95,15 +95,17 @@
   });
 
   function populateModal(data){
+    var plaintextPass = CryptoJS.AES.decrypt(data.encrypted_pass, sessionStorage.derivedEncyptionKey).toString(CryptoJS.enc.Utf8).replace(data.salt_string,'');
     $("#password_id").val(data.id),
     $('#password_name').val(data.password_name),
     $('#username_email').val(data.username_email),
-    $('#saved_password').val(data.encrypted_pass),
+    $('#saved_password').val(plaintextPass),
     $('#notes').val(data.notes),
 
     $("#last_updated").text("Last Updated: " + data.updated_at);
 
     $("#pw-edit-modal").show();
+    $("#password_name").focus();
   }
 
   function addPasswordPanel(panel_data){
@@ -123,29 +125,25 @@
     $("#password-panels").append(new_panel);
   }
 
-  function getPassword(passID){
-    $.ajax({
+  function getPasswordData(passID){
+    return $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       url: "{{ route('get-password') }}" + "/" + passID,
       method: "GET",
     })
-    .done(function(data){
-      populateModal(data);
-    })
-    .fail(function(data){
-      return false;
-    })
   }
 
   function postPasswordUpdate(){
     $('#save-password').prop("disabled", true);
+    var salt = Math.random().toString(36).slice(2);
     var pageData = {
       password_id : $('#password_id').val(),
       password_name : $('#password_name').val(),
       username_email : $('#username_email').val(),
-      encrypted_pass : $('#saved_password').val(),
+      salt_string : salt,
+      encrypted_pass : CryptoJS.AES.encrypt($('#saved_password').val() + salt, sessionStorage.derivedEncyptionKey).toString(),
       notes : $('#notes').val(),
     };
     $.ajax({
@@ -201,6 +199,10 @@
     postPasswordUpdate();
   });
 
+  $('#config-password').click(function(){
+    //Open config options
+  });
+
   $('#add-password').click(function(){
     $("#modal-header").text("Add A New Password");
     populateModal( {id : 'new'} );
@@ -212,10 +214,24 @@
     }
   });
 
+  $('.copy-button').click(function(){
+    getPasswordData( $(this).closest(".pw-panel").data('pid') ).then(function(data) {
+      copyToClipboard(CryptoJS.AES.decrypt(data.encrypted_pass, sessionStorage.derivedEncyptionKey).toString(CryptoJS.enc.Utf8).replace(data.salt_string,''));
+    });
+    displayNotification("success", "Password copied to clipboard.", 1000);
+  });
+
   // Uses "on" listener to support dynamically added password panels
-  $('#password-panels').on("click", ".pw-panel", function() {
+  $('#password-panels').on("click", ".pw-panel", function(event) {
+    //Prevent "copy button" clicks from opening modal
+    if ($(event.target).hasClass('copy-button')){
+      return;
+    }
+
     $("#modal-header").text("Edit A Password");
-    getPassword( $(this).data('pid') );
+    getPasswordData( $(this).data('pid') ).then(function(data) {
+      populateModal(data);
+    });
   });
 
   $('.modal-close-btn').click(function() {

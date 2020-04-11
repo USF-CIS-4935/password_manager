@@ -24,8 +24,9 @@ class PasswordController extends Controller
       if ($password->user_id === Auth::user()->id){
         $validatedData = $request->validate([
           'password_name' => 'required|string|max:200',
-          'username_email' => 'nullable|string|max:100',
-          'encrypted_pass' => 'nullable|string',
+          'username_email' => 'nullable|string|max:200',
+          'salt_string' => 'nullable|required_with:encrypted_pass|string|max:100',
+          'encrypted_pass' => 'nullable|required_with:salt_string|string',
           'notes' => 'nullable|string',
         ]);
 
