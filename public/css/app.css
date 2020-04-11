@@ -374,11 +374,18 @@
 }
 
 .modal-input input{
+  border: 1px solid #a9a9a9;
+  border-radius: 1px;
+  padding: 5px;
   width: 100%;
 }
 .modal-input textarea{
+  border: 1px solid #a9a9a9;
+  border-radius: 1px;
   width: 100%;
   height: 10%;
+  min-height: 100px;
+  padding: 5px;
   resize: none;
 }
 

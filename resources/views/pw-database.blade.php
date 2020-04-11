@@ -13,15 +13,15 @@
         <input id="password_id" type="hidden">
         <div class="modal-input" style="width: 100%;">
           <label for="password_name">Name/Title:</label><br>
-          <input id="password_name" type="text">
+          <input id="password_name" type="text" autocomplete="off">
         </div>
         <div class="modal-input" style="width: 47%;">
           <label for="username_email">Username/Email:</label><br>
-          <input id="username_email" type="text">
+          <input id="username_email" type="text" autocomplete="off">
         </div>
         <div class="modal-input" style="width: 47%; margin-left: 5%;">
           <label for="saved_password">Password:</label><br>
-          <input id="saved_password" type="text">
+          <input id="saved_password" type="text" autocomplete="off">
         </div>
         <div class="modal-input" style="width: 100%;">
           <label for="notes">Additional Notes:</label><br>

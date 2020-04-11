@@ -46,3 +46,16 @@ function displayNotification(notification_type = "error", error_message, fade_ti
     $("#" + notif_elem).show();
   }
 }
+
+function copyToClipboard(copy_text){
+  var container = document.querySelector("body");
+  var textarea = document.createElement("textarea");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  container.insertBefore(textarea, container.firstChild);
+  textarea.value = copy_text;
+  textarea.focus();
+  textarea.select();
+  document.execCommand("copy");
+  container.removeChild(textarea);
+}
