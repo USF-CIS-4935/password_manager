@@ -95,7 +95,9 @@
   });
 
   function populateModal(data){
-    var plaintextPass = CryptoJS.AES.decrypt(data.encrypted_pass, sessionStorage.derivedEncyptionKey).toString(CryptoJS.enc.Utf8).replace(data.salt_string,'');
+    if (data.encrypted_pass){
+      var plaintextPass = CryptoJS.AES.decrypt(data.encrypted_pass, sessionStorage.derivedEncyptionKey).toString(CryptoJS.enc.Utf8).replace(data.salt_string,'');
+    }
     $("#password_id").val(data.id),
     $('#password_name').val(data.password_name),
     $('#username_email').val(data.username_email),
@@ -205,6 +207,7 @@
 
   $('#add-password').click(function(){
     $("#modal-header").text("Add A New Password");
+    $("#delete-password,#config-password").prop("disabled", true);
     populateModal( {id : 'new'} );
   });
 
@@ -229,6 +232,7 @@
     }
 
     $("#modal-header").text("Edit A Password");
+    $("#delete-password,#config-password").prop("disabled", false);
     getPasswordData( $(this).data('pid') ).then(function(data) {
       populateModal(data);
     });
