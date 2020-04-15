@@ -124,7 +124,6 @@
   }
 
   function addPasswordPanel(panel_data){
-    console.log(panel_data);
     var new_panel = "\
     <div class='pw-panel no-select' data-pwname=" + String(panel_data.password_name) + " data-pid=" + panel_data.id + ">\
       <div class='date-field'>\
@@ -173,8 +172,10 @@
       data: pageData
     })
     .done(function(data){
+      if ($('#password_id').val() == "new"){
+        addPasswordPanel(data);
+      }
       populateModal(data);
-      addPasswordPanel(data);
       displayNotification("success", "Password updated successfully", 5000);
     })
     .fail(function(data){
