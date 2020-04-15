@@ -27,13 +27,20 @@
           <label for="notes">Additional Notes:</label><br>
           <textarea id="notes"></textarea>
         </div>
-        <div class="modal-input">
-          <span id="last_updated">Last Updated:</span><br>
-          <span>Password Expires In: 15 days</span>
+        <div id="config-options" style="display: none;">
+          <hr>
+          <div class="modal-input" style="width: 50%;">
+            <label for="expiration_date">Expiration Date:</label><br>
+            <input id="expiration_date" type="date" autocomplete="off">
+          </div>
+          <div class="modal-input" style="width: 50%;">
+            <span id="last_updated">Last Updated:</span><br>
+            <span id="expires_in">Password Expires In: 10 days</span>
+          </div>
         </div>
 
         <div class="modal-footer-buttons" style="display: block; margin-top: 15px;">
-          <button class="green-button" id="config-password"><i class="fas fa-cog"></i> Configure</button>
+          <button class="green-button" id="config-password"><i class="fas fa-cog"></i> Configure Expiration</button>
           <div class="right-buttons" style="float: right;">
             <button class="green-button" id="save-password"><i class="fas fa-save"></i> Save</button>
             <button class="green-button" id="delete-password"><i class="fas fa-trash"></i> Delete</button>
@@ -56,8 +63,8 @@
     <div id="password-panels">
       @foreach ($passwords as $password)
         <div class="pw-panel no-select" data-pwname="{{ $password->password_name }}" data-pid="{{ $password->id }}">
-          <div class="date-field">
-            <span class="day-counter">14&nbsp;</span>days
+          <div class="date-field @if($password->DaysUntilExpiration < 5 && is_numeric($password->DaysUntilExpiration))crit-date @endif">
+            <span class="day-counter">{{ $password->DaysUntilExpiration }}&nbsp;</span>days
           </div>
           <div class="panel-right">
             <h3 class="panel-title">{{ $password->password_name }}</h3>
@@ -98,27 +105,35 @@
     if (data.encrypted_pass){
       var plaintextPass = CryptoJS.AES.decrypt(data.encrypted_pass, sessionStorage.derivedEncyptionKey).toString(CryptoJS.enc.Utf8).replace(data.salt_string,'');
     }
-    $("#password_id").val(data.id),
-    $('#password_name').val(data.password_name),
-    $('#username_email').val(data.username_email),
-    $('#saved_password').val(plaintextPass),
-    $('#notes').val(data.notes),
+    if (data.expiration_date){
+      var exp_date = new Date(data.expiration_date).toISOString().slice(0,10);
+    }
+    $("#password_id").val(data.id);
+    $('#password_name').val(data.password_name);
+    $('#username_email').val(data.username_email);
+    $('#saved_password').val(plaintextPass);
+    $('#notes').val(data.notes);
+    $('#expiration_date').val(exp_date);
 
     $("#last_updated").text("Last Updated: " + data.updated_at);
+    $("#expires_in").text("Password Expires In: " + data.DaysUntilExpiration + " days");
+
 
     $("#pw-edit-modal").show();
     $("#password_name").focus();
   }
 
   function addPasswordPanel(panel_data){
+    console.log(panel_data);
     var new_panel = "\
     <div class='pw-panel no-select' data-pwname=" + String(panel_data.password_name) + " data-pid=" + panel_data.id + ">\
       <div class='date-field'>\
-        <span class='day-counter'>14&nbsp;</span>days\
+        <span class='day-counter'>" + panel_data.DaysUntilExpiration + "&nbsp;</span>days\
       </div>\
       <div class='panel-right'>\
         <h3 class='panel-title'>" + panel_data.password_name + "</h3>\
         <p class='subtitle'>" + panel_data.username_email + "</p>\
+        <p class='subtitle'>Last Updated: " + new Date(panel_data.updated_at).toISOString().slice(0,10) + "</p>\
       </div>\
       <p class='panel-links'><i class='fas fa-copy copy-button'></i></p>\
     </div>\
@@ -147,6 +162,7 @@
       salt_string : salt,
       encrypted_pass : CryptoJS.AES.encrypt($('#saved_password').val() + salt, sessionStorage.derivedEncyptionKey).toString(),
       notes : $('#notes').val(),
+      expiration_date : $('#expiration_date').val(),
     };
     $.ajax({
       headers: {
@@ -158,6 +174,7 @@
     })
     .done(function(data){
       populateModal(data);
+      addPasswordPanel(data);
       displayNotification("success", "Password updated successfully", 5000);
     })
     .fail(function(data){
@@ -202,7 +219,7 @@
   });
 
   $('#config-password').click(function(){
-    //Open config options
+    $("#config-options").toggle();
   });
 
   $('#add-password').click(function(){

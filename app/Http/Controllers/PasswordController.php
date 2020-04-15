@@ -28,6 +28,7 @@ class PasswordController extends Controller
           'salt_string' => 'nullable|required_with:encrypted_pass|string|max:100',
           'encrypted_pass' => 'nullable|required_with:salt_string|string',
           'notes' => 'nullable|string',
+          'expiration_date' => 'nullable|date'
         ]);
 
         $password->update($validatedData);
@@ -46,6 +47,7 @@ class PasswordController extends Controller
           'encrypted_pass' => $request['encrypted_pass'],
           'salt_string' => 'abc123',
           'notes' => $request['notes'],
+          'expiration_date' => \Carbon\Carbon::today()->addMonth()
       ]);
     }
     else{
