@@ -18,10 +18,28 @@ class Password extends Model
 
   public function getDaysUntilExpirationAttribute(){
     if ($this->expiration_date){
-      return $this->expiration_date->diffInDays(\Carbon\Carbon::today());
+      return \Carbon\Carbon::today()->diffInDays($this->expiration_date, false);
     }
     else{
       return "X";
+    }
+  }
+
+  public function getExpirationColorAttribute(){
+    if ( !is_numeric($this->DaysUntilExpiration) ){
+      return 'black';
+    }
+    if ($this->DaysUntilExpiration < 2){
+      return '#c11515'; //dark-red
+    }
+    elseif ($this->DaysUntilExpiration <= 5){
+      return '#e08f2a'; //orange
+    }
+    elseif ($this->DaysUntilExpiration <= 10){
+      return '#f1dc27'; //yellow
+    }
+    else{
+      return 'black';
     }
   }
 }

@@ -63,15 +63,15 @@
     <div id="password-panels">
       @foreach ($passwords as $password)
         <div class="pw-panel no-select" data-pwname="{{ $password->password_name }}" data-pid="{{ $password->id }}">
-          <div class="date-field @if($password->DaysUntilExpiration < 5 && is_numeric($password->DaysUntilExpiration))crit-date @endif">
-            <span class="day-counter">{{ $password->DaysUntilExpiration }}&nbsp;</span>days
+          <div class="date-field">
+            <span class="day-counter" style="color:{{ $password->ExpirationColor }}">{{ $password->DaysUntilExpiration }}&nbsp;</span>days
           </div>
           <div class="panel-right">
             <h3 class="panel-title">{{ $password->password_name }}</h3>
             <p class="subtitle">{{ $password->username_email ?? '-'}}</p>
             <p class="subtitle">Last Updated: {{ $password->updated_at->format('m/d/y') ?? '-'}}</p>
           </div>
-          <p class="panel-links"><i class="fas fa-copy copy-button"></i></p>
+          <p class="panel-links"><i title="Copy to Clipboard" class="fas fa-copy copy-button"></i></p>
         </div>
       @endforeach
     </div>
@@ -118,7 +118,6 @@
     $("#last_updated").text("Last Updated: " + data.updated_at);
     $("#expires_in").text("Password Expires In: " + data.DaysUntilExpiration + " days");
 
-
     $("#pw-edit-modal").show();
     $("#password_name").focus();
   }
@@ -127,7 +126,7 @@
     var new_panel = "\
     <div class='pw-panel no-select' data-pwname=" + String(panel_data.password_name) + " data-pid=" + panel_data.id + ">\
       <div class='date-field'>\
-        <span class='day-counter'>" + panel_data.DaysUntilExpiration + "&nbsp;</span>days\
+        <span class='day-counter' style='color: " + panel_data.ExpirationColor + "'>" + panel_data.DaysUntilExpiration + "&nbsp;</span>days\
       </div>\
       <div class='panel-right'>\
         <h3 class='panel-title'>" + panel_data.password_name + "</h3>\
