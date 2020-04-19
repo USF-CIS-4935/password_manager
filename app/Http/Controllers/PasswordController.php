@@ -45,7 +45,7 @@ class PasswordController extends Controller
           'password_name' => $request['password_name'],
           'username_email' => $request['username_email'],
           'encrypted_pass' => $request['encrypted_pass'],
-          'salt_string' => 'abc123',
+          'salt_string' => $request['salt_string'],
           'notes' => $request['notes'],
           'expiration_date' => \Carbon\Carbon::today()->addMonth()
       ]);
