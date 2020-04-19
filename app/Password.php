@@ -10,7 +10,7 @@ class Password extends Model
 
   protected $guarded = ['id'];
   protected $dates = ['expiration_date'];
-  protected $appends = array('DaysUntilExpiration');
+  protected $appends = array('DaysUntilExpiration', 'ExpirationColor');
 
   public function user(){
     return $this->belongsTo('App\User', 'user_id');

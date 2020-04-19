@@ -123,9 +123,9 @@
     $("#password_name").focus();
   }
 
-  function addPasswordPanel(panel_data){
+  function addPasswordPanel(panel_data, replace_pid = false){
     var new_panel = "\
-    <div class='pw-panel no-select' data-pwname=" + String(panel_data.password_name) + " data-pid=" + panel_data.id + ">\
+    <div class='pw-panel no-select' data-pwname=\"" + String(panel_data.password_name) + "\" data-pid=" + panel_data.id + ">\
       <div class='date-field'>\
         <span class='day-counter' style='color: " + panel_data.ExpirationColor + "'>" + panel_data.DaysUntilExpiration + "&nbsp;</span>days\
       </div>\
@@ -138,7 +138,12 @@
     </div>\
     ";
 
-    $("#password-panels").append(new_panel);
+    if (replace_pid){
+      $(".pw-panel[data-pid=" + replace_pid + "]").replaceWith(new_panel);
+    }
+    else{
+      $("#password-panels").append(new_panel);
+    }
   }
 
   function getPasswordData(passID){
@@ -172,7 +177,11 @@
       data: pageData
     })
     .done(function(data){
-      if ($('#password_id').val() == "new"){
+      if ($('#password_id').val() != "new"){
+        //Replace old panel with updated one
+        addPasswordPanel(data, $('#password_id').val());
+      }
+      else{
         addPasswordPanel(data);
       }
       populateModal(data);
