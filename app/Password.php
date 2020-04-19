@@ -18,7 +18,11 @@ class Password extends Model
 
   public function getDaysUntilExpirationAttribute(){
     if ($this->expiration_date){
-      return \Carbon\Carbon::today()->diffInDays($this->expiration_date, false);
+      $days = \Carbon\Carbon::today()->diffInDays($this->expiration_date, false);
+      if ($days < 0){
+        return 0;
+      }
+      return $days;
     }
     else{
       return "X";
