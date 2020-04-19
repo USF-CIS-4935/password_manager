@@ -11,6 +11,8 @@ Route::middleware(['auth'])->group(function () {
 
   Route::get('get-password/{password_id?}', 'PasswordController@get_password')
   ->name('get-password');
+  Route::get('get-all-user-passwords', 'PasswordController@get_all_user_passwords')
+  ->name('get-all-user-passwords');
   Route::post('update-password', 'PasswordController@update_password')
   ->name('update-password');
   Route::post('delete-password', 'PasswordController@delete_password')

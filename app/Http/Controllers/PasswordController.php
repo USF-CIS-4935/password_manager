@@ -18,6 +18,10 @@ class PasswordController extends Controller
     return $password;
   }
 
+  public function get_all_user_passwords(){
+    return Password::where('user_id', Auth::user()->id)->get();
+  }
+
   public function update_password(Request $request){
     if ( $password = Password::find($request->password_id) ){
       //Check if the person modifying actually owns the password

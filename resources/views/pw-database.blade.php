@@ -105,6 +105,7 @@
     if (data.encrypted_pass){
       var plaintextPass = CryptoJS.AES.decrypt(data.encrypted_pass, sessionStorage.derivedEncyptionKey).toString(CryptoJS.enc.Utf8).replace(data.salt_string,'');
     }
+    //Handles populating modal where exp date is not explicity set
     if (data.expiration_date){
       var exp_date = new Date(data.expiration_date).toISOString().slice(0,10);
     }
