@@ -13,15 +13,15 @@
         <input id="password_id" type="hidden">
         <div class="modal-input" style="width: 100%;">
           <label for="password_name">Name/Title:</label><br>
-          <input id="password_name" type="text" maxlength="225" autocomplete="off">
+          <input id="password_name" type="text" maxlength="255" autocomplete="off">
         </div>
         <div class="modal-input" style="width: 47%;">
           <label for="username_email">Username/Email:</label><br>
-          <input id="username_email" type="text" maxlength="225" autocomplete="off">
+          <input id="username_email" type="text" maxlength="255" autocomplete="off">
         </div>
         <div class="modal-input" style="width: 47%; margin-left: 5%;">
           <label for="saved_password">Password:</label><br>
-          <input id="saved_password" type="text" autocomplete="off">
+          <input id="saved_password" type="text" maxlength="255" autocomplete="off">
         </div>
         <div class="modal-input" style="width: 100%;">
           <label for="notes">Additional Notes:</label><br>
@@ -53,7 +53,7 @@
   <div class="container">
     <p class="header-text">Password Database</p>
     <div class="top-search" style="display: inline-block;">
-      <input id="db-search" class="text-search" type="text" style="float: left;" placeholder="Search by password name">
+      <input id="db-search" class="text-search" type="text" maxlength="100" style="float: left;" placeholder="Search by password name">
       <div id="db-search-submit" class="search-button">
         <i class="fas fa-search"></i>
       </div>
