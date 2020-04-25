@@ -50,7 +50,7 @@
       <legend>Account Settings</legend>
 
       <input type="checkbox" id="password_age_notification" @if ($user->account_options->password_age_notification) checked @endif>
-      <label for="password_age_notification">Notifications for Password Age Expirations</label><br>
+      <label for="password_age_notification">Notification for Expired Passwords on Login</label><br>
 
       <input type="checkbox" id="failure_lockout_timer" @if ($user->account_options->failure_lockout_timer) checked @endif>
       <label for="failure_lockout_timer">Enable Lockout Timer After Failed Login Attempts</label><br>

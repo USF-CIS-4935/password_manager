@@ -4,10 +4,13 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
+
   Route::get('/', function () {
-      $passwords = \App\Password::where('user_id', Auth::user()->id)->get();
-      return view('pw-database')->with('passwords', $passwords);
-  })->name('database');
+      return redirect()->route('database');
+  });
+
+  Route::get('database/{pw_exp?}', 'PasswordController@show_password_database')
+  ->name('database');
 
   Route::get('get-password/{password_id?}', 'PasswordController@get_password')
   ->name('get-password');

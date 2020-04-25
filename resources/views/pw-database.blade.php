@@ -4,6 +4,21 @@
   @include('templates/left-nav')
   @include('templates/status-notifications')
 
+  @isset($expired_passwords)
+    <div id="pw-expiration-modal" class="modal" style="display: block;">
+      <div class="modal-content">
+        <div class="modal-container">
+          <span class="modal-close-btn">×</span>
+          <p id="modal-header" class="header-text" style="margin-top: 0px; font-size: 30px;">Expired Passwords</p>
+          @foreach ($expired_passwords as $exp_pw)
+            <p>{{ $exp_pw->password_name}} expired on: {{ $exp_pw->expiration_date->format('m/d/y') }}</p>
+          @endforeach
+          <p class="subtitle">You disable this notifcation in the <a href="{{ route('acc-options') }}">Account Options</a> page</p>
+        </div>
+      </div>
+    </div>
+  @endisset
+
   <div id="pw-edit-modal" class="modal">
     <div class="modal-content">
       <div class="modal-container">
@@ -77,7 +92,7 @@
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="js/app_functions.js"></script>
+  <script src="/js/app_functions.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
   <script type="text/javascript">
   function search_filter(){
@@ -235,6 +250,9 @@
   $('#add-password').click(function(){
     $("#modal-header").text("Add A New Password");
     $("#delete-password,#config-password").prop("disabled", true);
+    if ( $("#config-options").is(":hidden") ){
+      $("#config-options").toggle();
+    }
     populateModal( {id : 'new'} );
   });
 

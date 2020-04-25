@@ -457,3 +457,7 @@
 .login-record-table tr:nth-child(even) {
   background-color: var(--lightest-text-color);
 }
+
+a {
+  color: var(--usf-green);
+}

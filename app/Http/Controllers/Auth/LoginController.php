@@ -31,7 +31,7 @@ class LoginController extends Controller
      * @var string
      */
     protected function redirectTo(){
-      return route('database');
+      return route('database') . '/' . (Auth::user()->account_options->password_age_notification == 1);
     }
 
     /**
