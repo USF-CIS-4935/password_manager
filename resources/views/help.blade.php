@@ -14,5 +14,10 @@
       <br>
       <a href="https://code.google.com/archive/p/crypto-js/" target="_blank">https://code.google.com/archive/p/crypto-js/</a>
     </p>
+    <p>
+      <strong>Authentication Page Background Pattern:</strong>
+      <br>
+      <a href="https://indexstudio.net/" target="_blank"> "Shiva"</a>
+    </p>
   </div>
 </body>
