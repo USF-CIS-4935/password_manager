@@ -40,8 +40,8 @@
     </form>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="js/app_functions.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha256.js" integrity="sha256-97+5pkCC4Dcd6Gw7Ptg+BfIr4erDGQ1zc2KY8vDshCU=" crossorigin="anonymous"></script>
+  <script src="{{ url('js/app_functions.js') }}"></script>
+  <script src="{{ url('js/sha256.js') }}"></script>
   <script type="text/javascript">
 
   function storeDerivedKey() {

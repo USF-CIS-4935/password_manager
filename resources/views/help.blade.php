@@ -10,7 +10,7 @@
       <a href="https://www.nayuki.io/page/random-password-generator-javascript" target="_blank">https://www.nayuki.io/page/random-password-generator-javascript</a>
     </p>
     <p>
-      <strong>CryptoJS:</strong>
+      <strong>CryptoJS 3.1.2:</strong>
       <br>
       <a href="https://code.google.com/archive/p/crypto-js/" target="_blank">https://code.google.com/archive/p/crypto-js/</a>
     </p>

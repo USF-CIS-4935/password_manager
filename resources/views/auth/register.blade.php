@@ -50,7 +50,7 @@
     </form>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="js/app_functions.js"></script>
+  <script src="{{ url('js/app_functions.js') }}"></script>
   <script type="text/javascript">
     $("#register-form").submit(function(event) {
       var verify = verifyPasswordReqs( $("#password").val() );

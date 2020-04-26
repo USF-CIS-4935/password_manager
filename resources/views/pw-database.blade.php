@@ -92,8 +92,8 @@
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="/js/app_functions.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+  <script src="{{ url('js/app_functions.js') }}"></script>
+  <script src="{{ url('js/aes.js') }}"></script>
   <script type="text/javascript">
   function search_filter(){
     var searchTerm = $('#db-search').val();
