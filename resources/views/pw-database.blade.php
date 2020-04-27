@@ -202,7 +202,7 @@
       displayNotification("success", "Password updated successfully", 5000);
     })
     .fail(function(data){
-      if (data.status = 422){
+      if (data.status == 422){
         displayNotification("error", data.responseJSON.errors, 10000);
       }
       else{

@@ -38,18 +38,18 @@ class PasswordController extends Controller
   }
 
   public function update_password(Request $request){
-    if ( $password = Password::find($request->password_id) ){
-      //Check if the person modifying actually owns the password
-      if ($password->user_id === Auth::user()->id){
-        $validatedData = $request->validate([
-          'password_name' => 'required|string|max:200',
-          'username_email' => 'nullable|string|max:200',
-          'salt_string' => 'nullable|required_with:encrypted_pass|string|max:100',
-          'encrypted_pass' => 'nullable|required_with:salt_string|string',
-          'notes' => 'nullable|string',
-          'expiration_date' => 'nullable|date'
-        ]);
 
+    $validatedData = $request->validate([
+      'password_name' => 'required|string|max:200',
+      'username_email' => 'nullable|string|max:200',
+      'salt_string' => 'sometimes|required_with:encrypted_pass|string|max:100',
+      'encrypted_pass' => 'sometimes|required_with:salt_string|string',
+      'notes' => 'nullable|string',
+      'expiration_date' => 'nullable|date'
+    ]);
+
+    if ( $password = Password::find($request->password_id) ){
+      if ($password->user_id === Auth::user()->id){ // Check if the person modifying actually owns the password
         $password->update($validatedData);
       }
       else {

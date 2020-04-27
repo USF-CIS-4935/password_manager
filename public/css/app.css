@@ -439,7 +439,7 @@
   max-width: 800px;
   margin: 0 auto;
   z-index: 3;
-  position: absolute;
+  position: fixed;
   overflow: hidden;
 }
 
