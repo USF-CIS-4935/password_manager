@@ -193,13 +193,12 @@
     })
     .done(function(data){
       if ($('#password_id').val() != "new"){
-        //Replace old panel with updated one
-        addPasswordPanel(data, $('#password_id').val());
+        addPasswordPanel(data, $('#password_id').val()); // Replace old panel with updated one
       }
       else{
         addPasswordPanel(data);
       }
-      populateModal(data);
+      $('#pw-edit-modal').hide();
       displayNotification("success", "Password updated successfully", 5000);
     })
     .fail(function(data){
