@@ -51,13 +51,27 @@
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="{{ url('js/app_functions.js') }}"></script>
+  <script src="{{ url('js/sha256.js') }}"></script>
   <script type="text/javascript">
+
+  function storeDerivedKey() {
+    if (typeof(Storage) !== "undefined") {
+      sessionStorage.derivedEncyptionKey = CryptoJS.SHA256( $("#password").val() );
+    }
+    else {
+      displayNotification("error", "Sorry, your browser does not support web storage. This application will not be compatible.");
+    }
+  }
+
     $("#register-form").submit(function(event) {
       var verify = verifyPasswordReqs( $("#password").val() );
       if (verify !== true){
         event.preventDefault();
         displayNotification("error", verify);
         $("#password").addClass('is-invalid');
+      }
+      else{
+        storeDerivedKey();
       }
     });
   </script>
