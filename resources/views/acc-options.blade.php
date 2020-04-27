@@ -54,9 +54,6 @@
 
       <input type="checkbox" id="failure_lockout_timer" @if ($user->account_options->failure_lockout_timer) checked @endif>
       <label for="failure_lockout_timer">Enable Lockout Timer After Failed Login Attempts</label><br>
-
-      <input type="checkbox" id="">
-      <label for="">Option 2</label><br>
     </fieldset>
 
     <div class="generator-fields" style="margin-bottom: 20px;">
@@ -88,11 +85,11 @@
       displayNotification("success", "Account options updated successfully", 5000);
     })
     .fail(function(data){
-      if (data.status = 422){
+      if (data.status == 422){
         displayNotification("error", data.responseJSON.errors, 10000);
       }
       else{
-        displayNotification("error", "An error occurred while updating account settings. Try again in a few minutes", 5000);
+        displayNotification("error", "An error occurred while updating account settings.", 5000);
       }
     })
     .always(function(data){
