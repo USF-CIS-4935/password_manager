@@ -250,9 +250,8 @@
   $('#add-password').click(function(){
     $("#modal-header").text("Add A New Password");
     $("#delete-password,#config-password").prop("disabled", true);
-    if ( $("#config-options").is(":hidden") ){
-      $("#config-options").toggle();
-    }
+    $("#config-options").hide();
+
     populateModal( {id : 'new'} );
   });
 
