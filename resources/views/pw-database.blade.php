@@ -98,7 +98,7 @@
   function search_filter(){
     var searchTerm = $('#db-search').val();
     $(".pw-panel").each(function(index) { //Iterate every password panel
-      if ($(this).data('pwname').toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0){ //Case-insenitive check for the search term within the 'pwname' data field
+      if (String($(this).data('pwname')).toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0){ //Case-insenitive check for the search term within the 'pwname' data field
         $(this).fadeIn(200);
       }
       else{
