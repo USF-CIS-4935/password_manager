@@ -4,7 +4,7 @@
   @include('templates/left-nav')
   @include('templates/status-notifications')
 
-  @isset($expired_passwords)
+  @if (!Cookie::has('closedExpiredModal') && Auth::user()->account_options->password_age_notification)
     <div id="pw-expiration-modal" class="modal" style="display: block;">
       <div class="modal-content">
         <div class="modal-container">
@@ -13,11 +13,11 @@
           @foreach ($expired_passwords as $exp_pw)
             <p>{{ $exp_pw->password_name}} expired on: {{ $exp_pw->expiration_date->format('m/d/y') }}</p>
           @endforeach
-          <p class="subtitle">You disable this notifcation in the <a href="{{ route('acc-options') }}">Account Options</a> page</p>
+          <p class="subtitle">You can disable this notifcation in the <a href="{{ route('acc-options') }}">Account Options</a> page</p>
         </div>
       </div>
     </div>
-  @endisset
+  @endif
 
   <div id="pw-edit-modal" class="modal">
     <div class="modal-content">
@@ -283,6 +283,10 @@
 
   $('.modal-close-btn').click(function() {
     $(this).closest(".modal").hide();
+  });
+
+  $('#pw-expiration-modal .modal-close-btn').click(function() {
+    document.cookie = "closedExpiredModal=true";
   });
   </script>
 </body>

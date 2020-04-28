@@ -34,7 +34,6 @@
       </div>
 
       <div class="center-wrapper" style="margin: 10px 0px 10px 0px;">
-        <a class="login-subtext subtitle" href="{{ route('acc-options') }}">Forgot Your Password?</a>
         <a class="login-subtext subtitle" href="{{ route('register') }}">Don't Already Have an Account?</a>
       </div>
     </form>

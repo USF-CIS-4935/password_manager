@@ -22,13 +22,23 @@
           <th>IP Address</th>
           <th>User Agent</th>
         </tr>
-        @foreach($last_logins as $login)
-          <tr>
-            <td>{{ $login->created_at->format('m/d/y H:m:s') }}</td>
-            <td>{{ $login->user_ip }}</td>
-            <td>{{ $login->user_agent }}</td>
-          </tr>
-        @endforeach
+        @if (Auth::user()->account_options->track_login_history != true)
+        <tr class="login-history-msg">
+          <td colspan="3">You currently have login history tracking disabled. You can enable it below.</td>
+        </tr>
+        @endif
+        @if (Auth::user()->account_options->track_login_history == true && $last_logins->isEmpty())
+        <tr class="login-history-msg">
+          <td colspan="3">No login history yet. Subsequent logins will be recorded.</td>
+        </tr>
+        @endif
+          @foreach($last_logins as $login)
+            <tr class="login-history-row" @if (Auth::user()->account_options->track_login_history != true) hidden @endif>
+              <td>{{ $login->created_at->format('m/d/y H:m:s') }}</td>
+              <td>{{ $login->user_ip }}</td>
+              <td>{{ $login->user_agent }}</td>
+            </tr>
+          @endforeach
       </table>
     </fieldset>
 
@@ -50,10 +60,10 @@
       <legend>Account Settings</legend>
 
       <input type="checkbox" id="password_age_notification" @if ($user->account_options->password_age_notification) checked @endif>
-      <label for="password_age_notification">Notification for Expired Passwords on Login</label><br>
+      <label for="password_age_notification">Alert to Expired Passwords on Database Page</label><br>
 
-      <input type="checkbox" id="failure_lockout_timer" @if ($user->account_options->failure_lockout_timer) checked @endif>
-      <label for="failure_lockout_timer">Enable Lockout Timer After Failed Login Attempts</label><br>
+      <input type="checkbox" id="track_login_history" @if ($user->account_options->track_login_history) checked @endif>
+      <label for="track_login_history">Track Login History</label><br>
     </fieldset>
 
     <div class="generator-fields" style="margin-bottom: 20px;">
@@ -68,7 +78,7 @@
     $('#save-account-options').prop("disabled", true);
     var pageData = {
       password_age_notification : $('#password_age_notification').is(':checked') ? 1 : 0,
-      failure_lockout_timer : $('#failure_lockout_timer').is(':checked') ? 1 : 0,
+      track_login_history : $('#track_login_history').is(':checked') ? 1 : 0,
       current_password : $('#current_password').val(),
       new_password : $('#new_password').val(),
       new_password_confirmation : $('#new_password_confirmation').val(),
@@ -83,6 +93,14 @@
     })
     .done(function(data){
       displayNotification("success", "Account options updated successfully", 5000);
+      if (data.track_login_history == true){
+        $(".login-history-row").show();
+        $(".login-history-msg").hide();
+      }
+      else{
+        $(".login-history-row").hide();
+        $(".login-history-msg").show();
+      }
     })
     .fail(function(data){
       if (data.status == 422){

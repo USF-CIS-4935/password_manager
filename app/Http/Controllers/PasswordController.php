@@ -10,17 +10,15 @@ class PasswordController extends Controller
 {
 
   public function show_password_database($pw_exp = false){
-    $passwords = \App\Password::where('user_id', Auth::user()->id)->get();
-    if ($pw_exp){
-      $expired_passwords = \App\Password::where('user_id', Auth::user()->id)
-        ->whereDate('expiration_date', '<=', \Carbon\Carbon::today())
-        ->get();
+    $passwords = \App\Password::where('user_id', Auth::user()->id)
+      ->get();
+    $expired_passwords = \App\Password::where('user_id', Auth::user()->id)
+      ->whereDate('expiration_date', '<=', \Carbon\Carbon::today())
+      ->get();
 
-      return view('pw-database')
-        ->with('passwords', $passwords)
-        ->with('expired_passwords', $expired_passwords);
-    }
-    return view('pw-database')->with('passwords', $passwords);
+    return view('pw-database')
+      ->with('passwords', $passwords)
+      ->with('expired_passwords', $expired_passwords);
   }
 
   public function get_password($password_id = 0){

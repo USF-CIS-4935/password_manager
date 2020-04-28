@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Auth;
@@ -26,15 +27,6 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected function redirectTo(){
-      return route('database') . '/' . (Auth::user()->account_options->password_age_notification == 1);
-    }
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -46,11 +38,13 @@ class LoginController extends Controller
 
     function authenticated(Request $request, $user)
     {
-      LoginRecord::create([
-        'user_id' => $user->id,
-        'user_ip' => $request->getClientIp(),
-        'user_agent' => $request->header('User-Agent')
-      ]);
+      if (Auth::user()->account_options->track_login_history == true){
+        LoginRecord::create([
+          'user_id' => $user->id,
+          'user_ip' => $request->getClientIp(),
+          'user_agent' => $request->header('User-Agent')
+        ]);  
+      }
     }
 
 

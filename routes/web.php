@@ -9,7 +9,7 @@ Route::middleware(['auth'])->group(function () {
       return redirect()->route('database');
   });
 
-  Route::get('database/{pw_exp?}', 'PasswordController@show_password_database')
+  Route::get('database', 'PasswordController@show_password_database')
   ->name('database');
 
   Route::get('get-password/{password_id?}', 'PasswordController@get_password')
