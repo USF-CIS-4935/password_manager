@@ -12,8 +12,12 @@
           <div id="TextEntrySearch" class="search-button">
             <i id="TextEntrySearch" class="fas fa-search"></i>
           </div>
-          <p id="onesearchresult">Nothing Searched Yet</p>
+          
           <button class="green-button" id="AllPasswordSearch" style="margin-top: 20px; height: 40px;"><i class="fas fa-list"></i> Check All of My Passwords</button>
+        </div>
+        <div id="test_results">
+          <p id="onesearchresult">Nothing Searched Yet</p>
+          <p id="allsearchresult">Nothing Searched Yet</p>
         </div>
       </div>
     </div>
@@ -70,24 +74,36 @@
           password_names.push(password_object.password_name);
           plaintext.push(CryptoJS.AES.decrypt(password_object.encrypted_pass, sessionStorage.derivedEncyptionKey).toString(CryptoJS.enc.Utf8).replace(password_object.salt_string,''));
         });
+       
+      compromised_passwords=[]
+      indata= -1
+      function data_fill(data,){
+        datafill=data.toString().toLowerCase();
+        console.log(shasearchlast)
+        console.log(compromised_passwords)
 
-        for (var i = 0; i < plaintext.length; i++) {
-          shasearchterm = CryptoJS.SHA1(plaintext[i]);
-          shasearch5 =  shasearchterm.toString().substring(0,5);
-          shasearchlast = shasearchterm.toString().substring(5,35);
-          var current_pass = password_names[i];
-
-          getHIBPResult(shasearch5).then(function(data) {
-            var strhibpdata = data.toString().toLowerCase();
-            if (strhibpdata.indexOf(shasearchlast) >= 0){ //If end of the full hash exists in the API response
-              console.log("Hash match found for: " + current_pass);
-              compromised_passwords.push(password_names[i]); // We cannot access variable "i" from here
-            }
-            else{
-              console.log("No match found for: " + current_pass);
-            }
-          });
+        if (datafill.indexOf(shasearchlast)>=0){
+          compromised_passwords[compromised_passwords.length]=password_names[0];
+          if (password_names.length > 1){
+            password_names=password_names.slice(1);
+          }
         }
+
+}
+
+      async function process_array(){
+        const passwords_plain = plaintext
+        for (const plain of passwords_plain){
+          shasearchterm = CryptoJS.SHA1(plain);
+          sha5=  shasearchterm.toString().substring(0,5);
+          shasearchlast = shasearchterm.toString().substring(5,35);
+          url2="https://api.pwnedpasswords.com/range/" + sha5
+          const contents = await $.get(url2,data_fill)
+        }
+        $("#allsearchresult").text("These passwords have been broken " + compromised_passwords);
+      }
+      process_array()
+
       });
     });
     </script>
