@@ -116,10 +116,11 @@
 
           if (dataFill.indexOf(shaSearchLast) >= 0){ //If last part of the SHA hash exists in 'dataFill'
             compromised_passwords[compromised_passwords.length] = password_names[0];
-            if (password_names.length > 1){
-              password_names=password_names.slice(1);
-            }
           }
+          if (password_names.length > 1){
+            password_names=password_names.slice(1);
+          }
+          
         }
 
         process_array();
