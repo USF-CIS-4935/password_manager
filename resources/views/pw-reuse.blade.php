@@ -120,7 +120,7 @@
           html += "</tr><tr>";
         for (var i=0; i<compromised_passwords.length; i++) {
           html += "<td>" + compromised_passwords[i] + "</td>";
-          html += "<td> This password has been found in the HIBP Database.  You should change it. </td>'"
+          html += "<td> This password has been found in the HIBP Database.  You should change it. </td>"
           
           var next = i+1;
           if (next%perrow==0 && next!=compromised_passwords.length) {
