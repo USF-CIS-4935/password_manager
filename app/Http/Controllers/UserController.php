@@ -28,7 +28,7 @@ class UserController extends Controller
 
         $validatedData = $request->validate([
             'password_age_notification' => 'required|boolean',
-            'failure_lockout_timer' => 'required|boolean',
+            'track_login_history' => 'required|boolean',
             'current_password' => ['nullable', 'string', 'required_with:new_password'],
             'new_password' => ['nullable', 'string', 'min:8', 'max:16', 'required_with:current_password', 'different:current_password', 'confirmed'],
         ]);

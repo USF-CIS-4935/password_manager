@@ -79,7 +79,7 @@ class RegisterController extends Controller
         \App\AccountOptions::create([
             'user_id' => $user->id,
             'password_age_notification' => 0,
-            'failure_lockout_timer' => 0,
+            'track_login_history' => 0,
         ]);
 
         return $user;

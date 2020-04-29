@@ -8,9 +8,9 @@ class AccountOptions extends Model
 {
   protected $table = 'account_options';
 
-  protected $fillable = ['user_id', 'password_age_notification', 'failure_lockout_timer'];
+  protected $fillable = ['user_id', 'password_age_notification', 'track_login_history'];
   protected $casts = [
     'password_age_notification' => 'boolean',
-    'failure_lockout_timer' => 'boolean',
+    'track_login_history' => 'boolean',
   ];
 }
