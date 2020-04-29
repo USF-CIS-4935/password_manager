@@ -135,7 +135,7 @@
       var newDerivedKey = CryptoJS.SHA256( $("#new_password").val() );
       var newEncPairs = {};
       $.each(data, function(key, password_object) {
-        var plaintext = CryptoJS.AES.decrypt(password_object.encrypted_pass, sessionStorage.derivedEncyptionKey).toString(CryptoJS.enc.Utf8).replace(password_object.salt_string,'');
+        var plaintext = CryptoJS.AES.decrypt(password_object.encrypted_pass, sessionStorage.derivedSecretKey).toString(CryptoJS.enc.Utf8).replace(password_object.salt_string,'');
         var new_enc = CryptoJS.AES.encrypt(plaintext + password_object.salt_string, newDerivedKey.toString()).toString();
         newEncPairs[password_object.id] = new_enc;
       })
@@ -148,7 +148,7 @@
         data: newEncPairs
       })
       .done(function(data){
-        sessionStorage.derivedEncyptionKey = newDerivedKey.toString();
+        sessionStorage.derivedSecretKey = newDerivedKey.toString();
       })
     });
   }

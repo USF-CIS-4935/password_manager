@@ -118,7 +118,7 @@
 
   function populateModal(data){
     if (data.encrypted_pass){
-      var plaintextPass = CryptoJS.AES.decrypt(data.encrypted_pass, sessionStorage.derivedEncyptionKey).toString(CryptoJS.enc.Utf8).replace(data.salt_string,'');
+      var plaintextPass = CryptoJS.AES.decrypt(data.encrypted_pass, sessionStorage.derivedSecretKey).toString(CryptoJS.enc.Utf8).replace(data.salt_string,'');
     }
     //Handles populating modal where exp date is not explicity set
     if (data.expiration_date){
@@ -179,7 +179,7 @@
       password_name : $('#password_name').val(),
       username_email : $('#username_email').val(),
       salt_string : salt,
-      encrypted_pass : CryptoJS.AES.encrypt($('#saved_password').val() + salt, sessionStorage.derivedEncyptionKey).toString(),
+      encrypted_pass : CryptoJS.AES.encrypt($('#saved_password').val() + salt, sessionStorage.derivedSecretKey).toString(),
       notes : $('#notes').val(),
       expiration_date : $('#expiration_date').val(),
     };
@@ -262,7 +262,7 @@
 
   $('.copy-button').click(function(){
     getPasswordData( $(this).closest(".pw-panel").data('pid') ).then(function(data) {
-      copyToClipboard(CryptoJS.AES.decrypt(data.encrypted_pass, sessionStorage.derivedEncyptionKey).toString(CryptoJS.enc.Utf8).replace(data.salt_string,''));
+      copyToClipboard(CryptoJS.AES.decrypt(data.encrypted_pass, sessionStorage.derivedSecretKey).toString(CryptoJS.enc.Utf8).replace(data.salt_string,''));
     });
     displayNotification("success", "Password copied to clipboard.", 1000);
   });

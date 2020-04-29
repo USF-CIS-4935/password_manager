@@ -45,7 +45,7 @@
 
   function storeDerivedKey() {
     if (typeof(Storage) !== "undefined") {
-      sessionStorage.derivedEncyptionKey = CryptoJS.SHA256( $("#password").val() );
+      sessionStorage.derivedSecretKey = CryptoJS.SHA256( $("#password").val() );
     }
     else {
       displayNotification("error", "Sorry, your browser does not support web storage. This application will not be compatible.");

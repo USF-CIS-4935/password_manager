@@ -76,7 +76,7 @@
       getAllUserPasswords().then(function(json_response) {
         $.each(json_response, function( key, password_object) {
           password_names.push(password_object.password_name);
-          plaintext.push(CryptoJS.AES.decrypt(password_object.encrypted_pass, sessionStorage.derivedEncyptionKey).toString(CryptoJS.enc.Utf8).replace(password_object.salt_string,''));
+          plaintext.push(CryptoJS.AES.decrypt(password_object.encrypted_pass, sessionStorage.derivedSecretKey).toString(CryptoJS.enc.Utf8).replace(password_object.salt_string,''));
         });
 
         async function process_array(){
@@ -120,7 +120,7 @@
           if (password_names.length > 1){
             password_names=password_names.slice(1);
           }
-          
+
         }
 
         process_array();
