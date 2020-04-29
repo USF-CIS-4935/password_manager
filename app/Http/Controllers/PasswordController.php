@@ -75,6 +75,15 @@ class PasswordController extends Controller
     return $password;
   }
 
+  public function mass_update_passwords(Request $request){
+    foreach ($request->all() as $p_id => $encrypted_pass){
+      $pass_entry = Password::findOrFail($p_id);
+      if (Auth::user()->id == $pass_entry->user_id){
+        $pass_entry->update(array( 'encrypted_pass' => $encrypted_pass ));
+      }
+    }
+  }
+
   public function delete_password(Request $request){
     if ( $password = Password::find($request->password_id) ){
       if ($password->user_id === Auth::user()->id){

@@ -18,6 +18,8 @@ Route::middleware(['auth'])->group(function () {
   ->name('get-all-user-passwords');
   Route::post('update-password', 'PasswordController@update_password')
   ->name('update-password');
+  Route::post('mass-update-passwords', 'PasswordController@mass_update_passwords')
+  ->name('mass-update-passwords');
   Route::post('delete-password', 'PasswordController@delete_password')
   ->name('delete-password');
 

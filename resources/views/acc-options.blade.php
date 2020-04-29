@@ -73,6 +73,8 @@
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="js/app_functions.js"></script>
+  <script src="{{ url('js/aes.js') }}"></script>
+  <script src="{{ url('js/sha256.js') }}"></script>
   <script type="text/javascript">
   function postSettingsUpdate(){
     $('#save-account-options').prop("disabled", true);
@@ -92,6 +94,9 @@
       data: pageData
     })
     .done(function(data){
+      if ( $("#new_password").val().length > 0 ){
+        massPasswordUpdate();
+      }
       displayNotification("success", "Account options updated successfully", 5000);
       if (data.track_login_history == true){
         $(".login-history-row").show();
@@ -113,6 +118,39 @@
     .always(function(data){
       $('#save-account-options').prop("disabled", false);
     })
+  }
+
+  function getAllUserPasswords(){
+    return $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: "{{ route('get-all-user-passwords') }}",
+      method: "GET",
+    })
+  }
+
+  function massPasswordUpdate(){
+    $.when(getAllUserPasswords()).done(function(data){
+      var newDerivedKey = CryptoJS.SHA256( $("#new_password").val() );
+      var newEncPairs = {};
+      $.each(data, function(key, password_object) {
+        var plaintext = CryptoJS.AES.decrypt(password_object.encrypted_pass, sessionStorage.derivedEncyptionKey).toString(CryptoJS.enc.Utf8).replace(password_object.salt_string,'');
+        var new_enc = CryptoJS.AES.encrypt(plaintext + password_object.salt_string, newDerivedKey.toString()).toString();
+        newEncPairs[password_object.id] = new_enc;
+      })
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "{{ route('mass-update-passwords') }}",
+        method: "POST",
+        data: newEncPairs
+      })
+      .done(function(data){
+        sessionStorage.derivedEncyptionKey = newDerivedKey.toString();
+      })
+    });
   }
 
   $('#save-account-options').click(function(){
