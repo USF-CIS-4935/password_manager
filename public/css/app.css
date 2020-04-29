@@ -442,6 +442,14 @@
   z-index: 3;
   position: fixed;
   overflow: hidden;
+
+  animation: blow-up 1s;
+  animation-duration: .5s;
+}
+
+@keyframes blow-up {
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 .login-record-table{
