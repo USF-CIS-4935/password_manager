@@ -16,9 +16,11 @@
           <button class="green-button" id="AllPasswordSearch" style="margin-top: 20px; height: 40px;"><i class="fas fa-list"></i> Check All of My Passwords</button>
         </div>
         <div id="test_results">
-          <p id="onesearchresult">Nothing Searched Yet</p>
-          <p id="allsearchresult">Nothing Searched Yet</p>
+         
         </div>
+        <div id="test_results2">
+         
+         </div>
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -53,13 +55,22 @@
       function HIBPDATAFILL(data) {
         var hibpdata=data;
         var indata = hibpdata.toString().toLowerCase().indexOf(shasearchlast);
+        var perrow = 1, // 3 cells per row
+        html = "<table class=\"login-record-table\"><th>Single Password Search</th><tr>";
+
+        
+        
+         
+          
+        
         if (indata >= 0) {
           alert("WARNING: YOUR PASSWORD HAS BEEN COMPROMISED");
-          $("#onesearchresult").text("Your Password has been compromised in the past.  Choose another password");
+          html += "<td>Password: " +searchterm+ " has been compromised in the past.  Choose another password</td>";
         }
         else {
-          $("#onesearchresult").text("This password has not been compromised in the past");
+          html += "<td>Password: " +searchterm+ " has not been compromised in the past.  </td>";
         };
+        document.getElementById("test_results").innerHTML = html;
       };
       $.get(fullhibpweb,HIBPDATAFILL);
     });
@@ -100,7 +111,31 @@
           url2="https://api.pwnedpasswords.com/range/" + sha5
           const contents = await $.get(url2,data_fill)
         }
-        $("#allsearchresult").text("These passwords have been broken " + compromised_passwords);
+        var perrow = 1, // 3 cells per row
+        html = "<table class=\"login-record-table\"><th>Searching All Your Passwords<tr>";
+
+        if (compromised_passwords.length > 0){
+          html += "<td>Name of Password</td>";
+          html += "<td>Found in HIBP Database?</td>";
+          html += "</tr><tr>";
+        for (var i=0; i<compromised_passwords.length; i++) {
+          html += "<td>" + compromised_passwords[i] + "</td>";
+          html += "<td> This password has been found in the HIBP Database.  You should change it. </td>'"
+          
+          var next = i+1;
+          if (next%perrow==0 && next!=compromised_passwords.length) {
+            html += "</tr><tr>";
+          }
+        }
+        html += "</tr></table>";
+        }
+        else {
+          html += "<td>Congratulations! None of your passwords have been found in HIBP Database!</td>";
+        }
+        
+        
+        
+        document.getElementById("test_results2").innerHTML = html;
       }
       process_array()
 
