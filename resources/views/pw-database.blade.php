@@ -4,7 +4,7 @@
   @include('templates/left-nav')
   @include('templates/status-notifications')
 
-  @if (!Auth::user()->account_options->password_age_notification && !$expired_passwords->isEmpty())
+  @if (Auth::user()->account_options->password_age_notification && !$expired_passwords->isEmpty())
     <div id="pw-expiration-modal" class="modal" style="display: block;">
       <div class="modal-content">
         <div class="modal-container">
