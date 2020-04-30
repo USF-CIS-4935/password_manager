@@ -82,8 +82,8 @@
             <span class="day-counter" style="color:{{ $password->ExpirationColor }}">{{ $password->DaysUntilExpiration }}&nbsp;</span>days
           </div>
           <div class="panel-right">
-            <h3 class="panel-title">{{ $password->password_name }}</h3>
-            <p class="subtitle">{{ $password->username_email ?? '-'}}</p>
+            <h3 class="panel-title">{{ $password->LengthCorrectedName }}</h3>
+            <p class="subtitle">{{ $password->username_email ?? ''}}</p>
             <p class="subtitle">Last Updated: {{ $password->updated_at->format('m/d/y') ?? '-'}}</p>
           </div>
           <p class="panel-links"><i title="Copy to Clipboard" class="fas fa-copy copy-button"></i></p>
@@ -145,7 +145,7 @@
         <span class='day-counter' style='color: " + panel_data.ExpirationColor + "'>" + panel_data.DaysUntilExpiration + "&nbsp;</span>days\
       </div>\
       <div class='panel-right'>\
-        <h3 class='panel-title'>" + panel_data.password_name + "</h3>\
+        <h3 class='panel-title'>" + panel_data.LengthCorrectedName + "</h3>\
         <p class='subtitle'>" + panel_data.username_email + "</p>\
         <p class='subtitle'>Last Updated: " + new Date(panel_data.updated_at).toISOString().slice(0,10) + "</p>\
       </div>\

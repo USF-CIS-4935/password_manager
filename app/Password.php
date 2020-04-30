@@ -10,7 +10,7 @@ class Password extends Model
 
   protected $guarded = ['id'];
   protected $dates = ['expiration_date'];
-  protected $appends = array('DaysUntilExpiration', 'ExpirationColor');
+  protected $appends = array('DaysUntilExpiration', 'ExpirationColor', 'LengthCorrectedName');
 
   public function user(){
     return $this->belongsTo('App\User', 'user_id');
@@ -44,6 +44,15 @@ class Password extends Model
     }
     else{
       return 'black';
+    }
+  }
+
+  public function getLengthCorrectedNameAttribute(){
+    if (strlen($this->password_name) >= 17){
+      return substr($this->password_name, 0, 17) . "...";
+    }
+    else{
+      return $this->password_name;
     }
   }
 }
