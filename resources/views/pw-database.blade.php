@@ -173,7 +173,7 @@
 
   function postPasswordUpdate(){
     $('#save-password').prop("disabled", true);
-    var salt = Math.random().toString(36).slice(2);
+    var salt = Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
     var pageData = {
       password_id : $('#password_id').val(),
       password_name : $('#password_name').val(),
